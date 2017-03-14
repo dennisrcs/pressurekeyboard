@@ -43,12 +43,22 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Constants.cs" />
+    <Compile Include="IO\DataReader.cs" />
+    <Compile Include="Model\FRS.cs" />
+    <Compile Include="Parser\IParser.cs" />
+    <Compile Include="Parser\KeystrokeFeatures\KeystrokeFeatureExtractor.cs" />
+    <Compile Include="Parser\KeystrokeFeatures\KeystrokeFeaturesParser.cs" />
+    <Compile Include="Parser\PressureFeatures\PressureFeatureCalculator.cs" />
+    <Compile Include="Parser\PressureFeatures\PressureFeatureExtractor.cs" />
+    <Compile Include="Parser\PressureFeatures\PressureFeaturesParser.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

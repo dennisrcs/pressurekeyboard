@@ -1,0 +1,17 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using DataAnalyzer.Parser;
+
+namespace DataAnalyzer.KeystrokeFeatures
+{
+    public class KeystrokeFeaturesParser : IParser
+    {
+        public void Parse(string filepath)
+        {
+            throw new NotImplementedException();
+        }
+    }
+}
