@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KeystrokeLogger", "Keylogge
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataAnalyzer", "DataAnalyzer\DataAnalyzer.csproj", "{6B8E2600-5AEF-431F-AED6-278A0C937368}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataSplitter", "DataSplitter\DataSplitter.csproj", "{69D50D7A-3B86-4C1F-AFB6-B6B6913A57DE}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{6B8E2600-5AEF-431F-AED6-278A0C937368}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6B8E2600-5AEF-431F-AED6-278A0C937368}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6B8E2600-5AEF-431F-AED6-278A0C937368}.Release|Any CPU.Build.0 = Release|Any CPU
+		{69D50D7A-3B86-4C1F-AFB6-B6B6913A57DE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{69D50D7A-3B86-4C1F-AFB6-B6B6913A57DE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{69D50D7A-3B86-4C1F-AFB6-B6B6913A57DE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{69D50D7A-3B86-4C1F-AFB6-B6B6913A57DE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
