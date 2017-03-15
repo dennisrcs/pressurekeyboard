@@ -47,11 +47,13 @@
     <Compile Include="IO\DataReader.cs" />
     <Compile Include="Model\FRS.cs" />
     <Compile Include="Model\Keystroke.cs" />
+    <Compile Include="Parser\DataParser.cs" />
     <Compile Include="Parser\IParser.cs" />
     <Compile Include="Parser\KeystrokeFeatures\IKeystrokeFeatureExtractor.cs" />
     <Compile Include="Parser\KeystrokeFeatures\KeystrokeFeatureCalculator.cs" />
     <Compile Include="Parser\KeystrokeFeatures\KeystrokeFeatureExtractor.cs" />
     <Compile Include="Parser\KeystrokeFeatures\KeystrokeFeaturesParser.cs" />
+    <Compile Include="Model\FeatureSample.cs" />
     <Compile Include="Parser\PressureFeatures\IPressureFeatureExtractor.cs" />
     <Compile Include="Parser\PressureFeatures\PressureFeatureCalculator.cs" />
     <Compile Include="Parser\PressureFeatures\PressureFeatureExtractor.cs" />
