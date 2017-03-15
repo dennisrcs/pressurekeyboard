@@ -7,10 +7,11 @@ using DataAnalyzer.Model;
 
 namespace DataAnalyzer.Parser.PressureFeatures
 {
-    public static class PressureFeatureExtractor
+    // Repo with pressure feature functions
+    public class PressureFeatureExtractor : IPressureFeatureExtractor
     {
         // calculates mean value
-        public static double CalculateMean(List<double> pressures)
+        public double CalculateMean(List<double> pressures)
         {
             double result = 0;
             double sum = 0;
@@ -23,7 +24,7 @@ namespace DataAnalyzer.Parser.PressureFeatures
         }
 
         // calculates standard deviation
-        public static double CalculateStdDev(List<double> pressures)
+        public double CalculateStdDev(List<double> pressures)
         {
             double result = 0;
             double sum = 0;
@@ -40,7 +41,7 @@ namespace DataAnalyzer.Parser.PressureFeatures
         }
 
         // finds minimum value
-        public static double FindMinValue(List<double> pressures)
+        public double FindMinValue(List<double> pressures)
         {
             double min = Int32.MaxValue;
 
@@ -52,7 +53,7 @@ namespace DataAnalyzer.Parser.PressureFeatures
         }
 
         // finds maximum value
-        public static double FindMaxValue(List<double> pressures)
+        public double FindMaxValue(List<double> pressures)
         {
             double max = Int32.MinValue;
 
@@ -64,7 +65,7 @@ namespace DataAnalyzer.Parser.PressureFeatures
         }
 
         // calculate positive energy center
-        public static double CalculatePositiveEnergyCenter(List<double> pressures)
+        public double CalculatePositiveEnergyCenter(List<double> pressures)
         {
             double result = 0;
             double num = 0;
@@ -84,7 +85,7 @@ namespace DataAnalyzer.Parser.PressureFeatures
         }
 
         // calculate negative energy center
-        public static double CalculateNegativeEnergyCenter(List<double> pressures)
+        public double CalculateNegativeEnergyCenter(List<double> pressures)
         {
             double result = 0;
             double num = 0;
@@ -104,7 +105,7 @@ namespace DataAnalyzer.Parser.PressureFeatures
         }
 
         // Normalize data
-        public static List<double> NormalizeData(List<double> pressures)
+        public List<double> NormalizeData(List<double> pressures)
         {
             List<double> result = new List<double>();
             double mean = CalculateMean(pressures);

