@@ -36,7 +36,7 @@ namespace DataAnalyzer.Parser
                     int task_id = i;
 
                     // parsing pressure features
-                    string pressure_path = Path.Combine(_root, "Pressure", "Task" + i, "Participant" + (j + 1));
+                    string pressure_path = Path.Combine(_root, "Pressure", "Task" + i, "Participant" + (j + 1) + ".txt");
                     PressureFeaturesParser pressure_parser = new PressureFeaturesParser();
                     pressure_parser.Parse(pressure_path);
 
@@ -45,7 +45,7 @@ namespace DataAnalyzer.Parser
                     double[] pressure_features = pressure_calculator.CalculateFeatures(pressure_parser.Pressures);
 
                     // parsing keystroke features
-                    string keystroke_path = Path.Combine(_root, "Keystrokes", "Task" + i, "Participant" + (j + 1));
+                    string keystroke_path = Path.Combine(_root, "Keystrokes", "Task" + i, "Participant" + (j + 1) + ".txt");
                     KeystrokeFeaturesParser keystroke_parser = new KeystrokeFeaturesParser();
                     keystroke_parser.Parse(keystroke_path);
 

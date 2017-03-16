@@ -33,8 +33,8 @@ namespace DataSplitter
 
             for (int i = 0; i < Constants.NUM_PARTICIPANTS; i++)
             {
-                string[] pressure_content = DataReader.ReadText(Path.Combine(_root, "Pressure", "Participant" + (i+1)));
-                string[] keystrokes_content = DataReader.ReadText(Path.Combine(_root, "Keystrokes", "Participant" + (i + 1)));
+                string[] pressure_content = DataReader.ReadText(Path.Combine(_root, "Pressure", "Participant" + (i + 1) + ".txt"));
+                string[] keystrokes_content = DataReader.ReadText(Path.Combine(_root, "Keystrokes", "Participant" + (i + 1) + ".txt"));
 
                 keystrokes_splitter.Split(tasks_info[i], keystrokes_content);
                 pressure_splitter.Split(tasks_info[i], pressure_content);

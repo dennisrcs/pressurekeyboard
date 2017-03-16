@@ -34,15 +34,15 @@ namespace DataSplitter
         // constructor
         public TaskInfo(int participant_id, string task)
         {
+            // number of elements in the task file should be equal to NUM_TASKS + NUM_TASKS * 2
             string[] elems = task.Split(',');
-
             if (elems.Length != Constants.NUM_TASKS + Constants.NUM_TASKS * 2)
                 throw new ArgumentOutOfRangeException("The number of elements in the task file should be equal to NUM_TASKS + NUM_TASKS * 2");
 
+            // setting upvariables
             _task_order = new List<int>();
             _task_start = new List<DateTime>();
             _task_end = new List<DateTime>();
-
             _participant_id = participant_id + "";
 
             // first NUM_TASKS elements store task order                
