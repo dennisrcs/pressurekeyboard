@@ -28,7 +28,7 @@ namespace DataSplitter
             {
                 // setting up output file
                 List<string> task_lines = new List<string>();
-                string dest_path = Path.Combine(_root, "Parsed", "Keystrokes", "Task" + taskInfo.TaskOrder[j],
+                string dest_path = Path.Combine(_root, @"..\", "Parsed", "Keystrokes", "Task" + taskInfo.TaskOrder[j],
                                                 "Participant" + taskInfo.ParticipantId + ".txt");
 
                 // getting task's start and end time

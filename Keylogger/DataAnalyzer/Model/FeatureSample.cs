@@ -30,7 +30,7 @@
                     result = pressure_features[i] + "";
 
             for (int i = 0; i < keystroke_features.Length; i++)
-                result = keystroke_features[i] + "";
+                result = result + "," + keystroke_features[i];
 
             result = result + "," + task_id;
 

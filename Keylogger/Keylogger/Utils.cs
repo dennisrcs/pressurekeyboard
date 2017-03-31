@@ -18,10 +18,5 @@ namespace Keylogger
               .Select(s => s[random.Next(s.Length)]).ToArray());
             return gen_string + ".txt";
         }
-
-        public static String GetTimestamp(this DateTime value)
-        {
-            return value.ToString("yyyyMMddHHmmssfff");
-        }
     }
 }

@@ -41,7 +41,7 @@ namespace DataAnalyzer.Model
 
             _isKeyUp = (elements[0] == "1");
             _character = elements[1];
-            _timestamp = DateTime.Parse(elements[3]);
+            _timestamp = DateTime.Parse(elements[2]);
         }
     }
 }

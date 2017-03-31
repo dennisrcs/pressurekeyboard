@@ -59,7 +59,7 @@ namespace KeystrokeLogger
                 {
                     string txt = serialPort.ReadExisting();
                     StreamWriter file = new StreamWriter("pressure" + _filename, true);
-                    file.WriteLine("time:" + Utils.GetTimestamp(DateTime.Now));
+                    file.WriteLine("time:" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff"));
                     file.WriteLine(txt);
                     file.Close();
                     Thread.Sleep(2000);

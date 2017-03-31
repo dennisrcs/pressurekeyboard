@@ -16,7 +16,7 @@ namespace DataAnalyzer.Parser.PressureFeatures
             double result = 0;
             double sum = 0;
 
-            for (int i = 0; i > pressures.Count; i++)
+            for (int i = 0; i < pressures.Count; i++)
                 sum += pressures[i];
             result = sum / pressures.Count;
 
@@ -44,10 +44,14 @@ namespace DataAnalyzer.Parser.PressureFeatures
         public double FindMinValue(List<double> pressures)
         {
             double min = Int32.MaxValue;
+            int index = -1;
 
             for (int i = 0; i < pressures.Count; i++)
                 if (pressures[i] < min)
+                {
                     min = pressures[i];
+                    index = i;
+                }
 
             return min;
         }
@@ -112,7 +116,7 @@ namespace DataAnalyzer.Parser.PressureFeatures
             double stddev = CalculateStdDev(pressures);
 
             for (int i = 0; i < pressures.Count; i++)
-                result[i] = (pressures[i] - mean) / stddev;
+                result.Add((pressures[i] - mean) / stddev);
 
             return result;
         }

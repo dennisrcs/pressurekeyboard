@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using DataAnalyzer.Model;
 using DataAnalyzer.Parser;
@@ -27,10 +28,24 @@ namespace DataAnalyzer.Parser.PressureFeatures
             {
                 string line = inputdata[i];
                 string[] values = line.Split(';');
+
+                Regex regex = new Regex(@"^\d+$");
+                bool valid = true;
+
                 if (values.Length == Constants.NUM_SENSORS)
                 {
-                    FRS frs_pressures = new FRS(values);
-                    _pressures.Add(frs_pressures);
+                    // validating
+                    for (int j = 0; j < Constants.NUM_SENSORS; j++)
+                        if (!regex.IsMatch(values[j]))
+                            valid &= false;
+                    
+                    // if valid
+                    if (valid)
+                    {
+                        FRS frs_pressures = new FRS(values);
+                        _pressures.Add(frs_pressures);
+                    }
+                    
                 }
             }
 

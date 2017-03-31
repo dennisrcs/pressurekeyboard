@@ -13,7 +13,7 @@ namespace DataAnalyzer
         static void Main(string[] args)
         {
             // data root directory
-            string data_dir = "C:/Users/Dennis/Source/Repos/pressurekeyboard/Keylogger/Data/Parsed";
+            string data_dir = "C:\\Users\\Dennis\\Source\\Repos\\pressurekeyboard\\Keylogger\\Data\\Parsed";
 
             // output file where data will be dumped
             string output_filepath = "C:/Users/Dennis/Source/Repos/pressurekeyboard/Keylogger/Data/output.txt";

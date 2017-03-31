@@ -32,7 +32,7 @@ namespace DataSplitter
             {
                 // setting up output file
                 List<string> task_lines = new List<string>();
-                string dest_path = Path.Combine(_root, "Parsed", "Pressure", "Task" + taskInfo.TaskOrder[j],
+                string dest_path = Path.Combine(_root, @"..\", "Parsed", "Pressure", "Task" + taskInfo.TaskOrder[j],
                                                 "Participant" + taskInfo.ParticipantId + ".txt");
 
                 // retrieving start and end time for each task
@@ -48,7 +48,7 @@ namespace DataSplitter
                     // // ex: time:20170315122319036
                     if (current.Contains("time"))
                     {
-                        string timestamp_str = current.Substring(5, 17);
+                        string timestamp_str = current.Substring(5, current.Length-5);
                         DateTime timestamp = DateTime.Parse(timestamp_str);
 
                         // checking if the pressure's timestamp lies within the task interval

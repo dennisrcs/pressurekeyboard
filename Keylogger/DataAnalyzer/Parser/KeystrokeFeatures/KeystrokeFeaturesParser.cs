@@ -21,7 +21,12 @@ namespace DataAnalyzer.KeystrokeFeatures
         {
             string[] inputdata = DataReader.ReadText(filepath);
 
-            for (int i = 0; i < inputdata.Length; i++)
+            // ignore first keystroke if it is not key down
+            Keystroke first_key = new Keystroke(inputdata[0]);
+            if (!first_key.IsKeyUp)
+                _keystrokes.Add(first_key);
+
+            for (int i = 1; i < inputdata.Length; i++)
             {
                 string line = inputdata[i];
                 Keystroke key = new Keystroke(line);
