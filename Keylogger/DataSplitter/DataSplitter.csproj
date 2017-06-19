@@ -44,9 +44,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DataHandler.cs" />
+    <Compile Include="DataSynchronizer.cs" />
     <Compile Include="IDataSplitter.cs" />
     <Compile Include="KeystrokesDataSplitter.cs" />
+    <Compile Include="Preprocessor.cs" />
     <Compile Include="PressureDataSplitter.cs" />
+    <Compile Include="PressureIndex.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TaskInfo.cs" />

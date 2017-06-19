@@ -10,8 +10,8 @@ namespace DataAnalyzer.Model
     public class FRS
     {
         // members
-        private int[] _values;
-        public int[] Values
+        private double[] _values;
+        public double[] Values
         {
             get { return _values; }
         }
@@ -19,10 +19,10 @@ namespace DataAnalyzer.Model
         // constructor
         public FRS(string[] strvalues)
         {
-            _values = new int[Constants.NUM_SENSORS];
+            _values = new double[Constants.NUM_SENSORS];
 
             for (int i = 0; i < Constants.NUM_SENSORS; i++)
-                _values[i] = Int32.Parse(strvalues[i]);
+                _values[i] = Double.Parse(strvalues[i]);
 
         }
     }

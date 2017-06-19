@@ -28,5 +28,8 @@ namespace DataAnalyzer.Parser.PressureFeatures
 
         // Normalize data
         List<double> NormalizeData(List<double> pressures);
+
+        // Calculates the mode of the array
+        double CalculateMedian(List<double> pressures);
     }
 }

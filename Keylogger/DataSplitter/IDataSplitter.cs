@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace DataSplitter
 {
+    // IDataSplitter interface
     public interface IDataSplitter
     {
         void Split(TaskInfo taskInfo, string[] keystrokes_content);

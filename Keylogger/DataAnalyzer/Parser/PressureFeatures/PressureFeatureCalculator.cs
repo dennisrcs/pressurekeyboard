@@ -21,6 +21,8 @@ namespace DataAnalyzer.Parser.PressureFeatures
             double[] pecs = new double[Constants.NUM_SENSORS];
             double[] necs = new double[Constants.NUM_SENSORS];
 
+            double[] medians = new double[Constants.NUM_SENSORS];
+
             // creating instance of pressure feature extractor
             IPressureFeatureExtractor feature_extractor = new PressureFeatureExtractor();
 
@@ -44,6 +46,7 @@ namespace DataAnalyzer.Parser.PressureFeatures
             // calculating mean and standard deviation
             for (int i = 0; i < Constants.NUM_SENSORS; i++)
             {
+                //medians[i] = feature_extractor.CalculateMedian(pressures_sensor[i]);
                 means[i] = feature_extractor.CalculateMean(pressures_sensor[i]);
                 stddevs[i] = feature_extractor.CalculateStdDev(pressures_sensor[i]);
                 mins[i] = feature_extractor.FindMinValue(pressures_sensor[i]);
@@ -63,11 +66,12 @@ namespace DataAnalyzer.Parser.PressureFeatures
 
             // concatenating individual features per sensor (and forming feature vector)
             features.AddRange(means);
-            features.AddRange(stddevs);
-            features.AddRange(mins);
-            features.AddRange(maxs);
-            features.AddRange(pecs);
-            features.AddRange(necs);
+            //features.AddRange(stddevs);
+            //features.AddRange(mins);
+            //features.AddRange(maxs);
+            //features.AddRange(pecs);
+            //features.AddRange(necs);
+            //features.AddRange(medians);
 
             return features.ToArray();
         }

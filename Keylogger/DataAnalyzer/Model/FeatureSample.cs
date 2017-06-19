@@ -5,6 +5,8 @@
     {
         // members
         private int task_id; // 0 for relaxed typing, 1 for stressed (movie) and 2 for stress (expressive writing)
+        public int TaskId { get { return task_id; } }
+        
         private string participant_id;
         private double[] keystroke_features;
         private double[] pressure_features;
@@ -32,7 +34,7 @@
             for (int i = 0; i < keystroke_features.Length; i++)
                 result = result + "," + keystroke_features[i];
 
-            result = result + "," + task_id;
+            //result = result + "," + task_id;
 
             return result;
         }
@@ -48,7 +50,7 @@
                 else
                     result = pressure_features[i] + "";
 
-            result = result + "," + task_id;
+            //result = result + "," + task_id;
 
             return result;
         }
@@ -64,7 +66,7 @@
                 else
                     result = keystroke_features[i] + "";
 
-            result = result + "," + task_id;
+            //result = result + "," + task_id;
 
             return result;
         }

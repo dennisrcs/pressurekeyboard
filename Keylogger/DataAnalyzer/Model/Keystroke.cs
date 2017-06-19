@@ -28,8 +28,14 @@ namespace DataAnalyzer.Model
             get { return _timestamp; }
         }
 
+        private int _id;
+        public int Id 
+        {
+            get { return _id; }
+        }
+
         // constructor
-        public Keystroke(string line)
+        public Keystroke(string line, int id)
         {
             // parsing file line
             string[] elements = line.Split(',');
@@ -39,9 +45,19 @@ namespace DataAnalyzer.Model
             if (elements.Length != 3)
                 throw new ArgumentOutOfRangeException("The appropriate number of elements per line should be three");
 
+            _id = id;
             _isKeyUp = (elements[0] == "1");
             _character = elements[1];
             _timestamp = DateTime.Parse(elements[2]);
+        }
+
+        // constructor 2
+        public Keystroke(Keystroke keystroke)
+        {
+            _id = keystroke.Id;
+            _isKeyUp = keystroke.IsKeyUp;
+            _character = keystroke.Character;
+            _timestamp = keystroke.Timestamp;
         }
     }
 }

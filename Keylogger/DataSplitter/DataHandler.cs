@@ -41,6 +41,67 @@ namespace DataSplitter
             }
         }
 
+        // Creates a file with all the pressures, including when there's no keystroke event
+        public void MergeKeepAllPressures(string order_filepath)
+        {
+            // variables
+            for (int i = 0; i < Constants.NUM_PARTICIPANTS; i++)
+            {
+                string[] pressure_content = DataReader.ReadText(Path.Combine(_root, "Pressure", "Participant" + (i + 1) + ".txt"));
+                string[] keystrokes_content = DataReader.ReadText(Path.Combine(_root, "Keystrokes", "Participant" + (i + 1) + ".txt"));
+
+                DataSynchronizer syncer = new DataSynchronizer(_root);
+                syncer.MergePressure(pressure_content, keystrokes_content, i);
+            }
+        }
+
+        // Creates files with the next pressure after a keydown event
+        public void Merge(string order_filepath)
+        {
+            // variables
+            string[] lines = DataReader.ReadText(order_filepath);
+            List<TaskInfo> tasks_info = _loadParticipantsTaskInfo(lines);
+            
+            for (int i = 0; i < Constants.NUM_PARTICIPANTS; i++)
+            {
+                string[] pressure_content = DataReader.ReadText(Path.Combine(_root, "Pressure", "Participant" + (i + 1) + ".txt"));
+                string[] keystrokes_content = DataReader.ReadText(Path.Combine(_root, "Keystrokes", "Participant" + (i + 1) + ".txt"));
+
+                DataSynchronizer syncer = new DataSynchronizer(_root);
+                syncer.Merge(pressure_content, keystrokes_content, tasks_info[i]);
+            }
+        }
+
+        // Creates files with the maximum pressure between two keydown events
+        public void MergeMax(string order_filepath)
+        {
+            // variables
+            string[] lines = DataReader.ReadText(order_filepath);
+            List<TaskInfo> tasks_info = _loadParticipantsTaskInfo(lines);
+
+            for (int i = 0; i < Constants.NUM_PARTICIPANTS; i++)
+            {
+                string[] pressure_content = DataReader.ReadText(Path.Combine(_root, "Pressure", "Participant" + (i + 1) + ".txt"));
+                string[] keystrokes_content = DataReader.ReadText(Path.Combine(_root, "Keystrokes", "Participant" + (i + 1) + ".txt"));
+
+                DataSynchronizer syncer = new DataSynchronizer(_root);
+                syncer.MergeMax(pressure_content, keystrokes_content, tasks_info[i]);
+            }
+        }
+
+        // Removes unformatted pressure values from the dataset
+        public void Preprocess()
+        {
+            for (int i = 0; i < Constants.NUM_PARTICIPANTS; i++)
+            {
+                string path = Path.Combine(_root, "Pressure", "Participant" + (i + 1) + ".txt");
+                string[] pressure_content = DataReader.ReadText(path);
+                string[] content = Preprocessor.RemoveUnformattedPressuresAndFilter(pressure_content);
+
+                File.WriteAllLines(path, content.ToArray());
+            }
+        }
+
         // returns the task order for each participant
         private List<TaskInfo> _loadParticipantsTaskInfo(string[] lines)
         {

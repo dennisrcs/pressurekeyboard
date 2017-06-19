@@ -36,9 +36,11 @@ namespace DataAnalyzer.Parser.PressureFeatures
                 {
                     // validating
                     for (int j = 0; j < Constants.NUM_SENSORS; j++)
-                        if (!regex.IsMatch(values[j]))
+                    {
+                        if (values[j] == "")
                             valid &= false;
-                    
+                    }
+                        
                     // if valid
                     if (valid)
                     {

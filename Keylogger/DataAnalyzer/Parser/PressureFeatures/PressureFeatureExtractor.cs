@@ -44,14 +44,11 @@ namespace DataAnalyzer.Parser.PressureFeatures
         public double FindMinValue(List<double> pressures)
         {
             double min = Int32.MaxValue;
-            int index = -1;
 
             for (int i = 0; i < pressures.Count; i++)
                 if (pressures[i] < min)
-                {
                     min = pressures[i];
-                    index = i;
-                }
+                    
 
             return min;
         }
@@ -82,6 +79,7 @@ namespace DataAnalyzer.Parser.PressureFeatures
                     num += i * Math.Pow(pressures[i], 2);
                     denum += Math.Pow(pressures[i], 2);
                 }
+                
             }
 
             result = num / denum;
@@ -108,6 +106,17 @@ namespace DataAnalyzer.Parser.PressureFeatures
             return result;
         }
 
+        public double CalculateMedian(List<double> pressures)
+        {
+            List<double> cloned = new List<double>();
+
+            for (int i = 0; i < pressures.Count; i++)
+                cloned.Add(pressures[i]);
+            cloned.Sort();
+
+            return cloned[cloned.Count / 2];
+        }
+
         // Normalize data
         public List<double> NormalizeData(List<double> pressures)
         {
@@ -120,5 +129,6 @@ namespace DataAnalyzer.Parser.PressureFeatures
 
             return result;
         }
+
     }
 }

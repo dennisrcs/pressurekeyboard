@@ -38,7 +38,7 @@ namespace DataSplitter
                 // printing keystrokes collected during the task interval to a file
                 for (int i = 0; i < content.Length; i++)
                 {
-                    Keystroke keystroke = new Keystroke(content[i]);
+                    Keystroke keystroke = new Keystroke(content[i],1);
                     
                     if (keystroke.Timestamp < start_time)
                         continue;
