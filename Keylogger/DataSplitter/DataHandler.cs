@@ -13,11 +13,13 @@ namespace DataSplitter
     {
         // members
         private string _root;
+        private string _participant_id;
 
         // constructor
-        public DataHandler(string root_dir)
+        public DataHandler(string root_dir, string participant_id)
         {
             this._root = root_dir;
+            this._participant_id = participant_id;
         }
 
         // splits raw data into folders task1, task2..
@@ -31,27 +33,32 @@ namespace DataSplitter
             KeystrokesDataSplitter keystrokes_splitter = new KeystrokesDataSplitter(_root);
             PressureDataSplitter pressure_splitter = new PressureDataSplitter(_root);
 
-            for (int i = 0; i < Constants.NUM_PARTICIPANTS; i++)
+            for (int i = 0; i < Constants.NUM_SESSIONS; i++)
             {
-                string[] pressure_content = DataReader.ReadText(Path.Combine(_root, "Pressure", "Participant" + (i + 1) + ".txt"));
-                string[] keystrokes_content = DataReader.ReadText(Path.Combine(_root, "Keystrokes", "Participant" + (i + 1) + ".txt"));
+                string[] pressure_content = DataReader.ReadText(Path.Combine(_root, "Pressure", "session" + (i + 1) + ".txt"));
+                string[] keystrokes_content = DataReader.ReadText(Path.Combine(_root, "Keystrokes", "session" + (i + 1) + ".txt"));
 
-                keystrokes_splitter.Split(tasks_info[i], keystrokes_content);
-                pressure_splitter.Split(tasks_info[i], pressure_content);
+                DateTime sessionDay = DateTime.Parse(pressure_content[1]);
+                keystrokes_splitter.Split(tasks_info[i], keystrokes_content, sessionDay);
+                
+                // Pressures computed using the MergeMax method. Temporary comment, but probably will not be ever invoked anymore
+                //pressure_splitter.Split(tasks_info[i], pressure_content);
             }
         }
 
         // Creates a file with all the pressures, including when there's no keystroke event
         public void MergeKeepAllPressures(string order_filepath)
         {
+            string[] lines = DataReader.ReadText(order_filepath);
+            List<TaskInfo> tasks_info = _loadParticipantsTaskInfo(lines);
             // variables
-            for (int i = 0; i < Constants.NUM_PARTICIPANTS; i++)
+            for (int i = 0; i < Constants.NUM_SESSIONS; i++)
             {
-                string[] pressure_content = DataReader.ReadText(Path.Combine(_root, "Pressure", "Participant" + (i + 1) + ".txt"));
-                string[] keystrokes_content = DataReader.ReadText(Path.Combine(_root, "Keystrokes", "Participant" + (i + 1) + ".txt"));
+                string[] pressure_content = DataReader.ReadText(Path.Combine(_root, "Pressure", "session" + (i + 1) + ".txt"));
+                string[] keystrokes_content = DataReader.ReadText(Path.Combine(_root, "Keystrokes", "session" + (i + 1) + ".txt"));
 
                 DataSynchronizer syncer = new DataSynchronizer(_root);
-                syncer.MergePressure(pressure_content, keystrokes_content, i);
+                syncer.MergePressure(pressure_content, keystrokes_content, i, tasks_info[i].ParticipantId);
             }
         }
 
@@ -62,10 +69,10 @@ namespace DataSplitter
             string[] lines = DataReader.ReadText(order_filepath);
             List<TaskInfo> tasks_info = _loadParticipantsTaskInfo(lines);
             
-            for (int i = 0; i < Constants.NUM_PARTICIPANTS; i++)
+            for (int i = 0; i < Constants.NUM_SESSIONS; i++)
             {
-                string[] pressure_content = DataReader.ReadText(Path.Combine(_root, "Pressure", "Participant" + (i + 1) + ".txt"));
-                string[] keystrokes_content = DataReader.ReadText(Path.Combine(_root, "Keystrokes", "Participant" + (i + 1) + ".txt"));
+                string[] pressure_content = DataReader.ReadText(Path.Combine(_root, "Pressure", "session" + (i + 1) + ".txt"));
+                string[] keystrokes_content = DataReader.ReadText(Path.Combine(_root, "Keystrokes", "session" + (i + 1) + ".txt"));
 
                 DataSynchronizer syncer = new DataSynchronizer(_root);
                 syncer.Merge(pressure_content, keystrokes_content, tasks_info[i]);
@@ -79,22 +86,30 @@ namespace DataSplitter
             string[] lines = DataReader.ReadText(order_filepath);
             List<TaskInfo> tasks_info = _loadParticipantsTaskInfo(lines);
 
-            for (int i = 0; i < Constants.NUM_PARTICIPANTS; i++)
+            for (int i = 0; i < Constants.NUM_SESSIONS; i++)
             {
-                string[] pressure_content = DataReader.ReadText(Path.Combine(_root, "Pressure", "Participant" + (i + 1) + ".txt"));
-                string[] keystrokes_content = DataReader.ReadText(Path.Combine(_root, "Keystrokes", "Participant" + (i + 1) + ".txt"));
+                string[] pressure_content = DataReader.ReadText(Path.Combine(_root, "Pressure", "session" + (i + 1) + ".txt"));
+                string[] keystrokes_content = DataReader.ReadText(Path.Combine(_root, "Keystrokes", "session" + (i + 1) + ".txt"));
+
+                // Computing norm and saving it to disk
+                string norm_dest_path = Path.Combine(_root, "PressureCentered", "session" + (i + 1) + ".txt");
+                List<List<double>> centeredValues = DataSynchronizer.ComputeNorm(pressure_content);
+
+                double[] norms = centeredValues[1].ToArray();
+                List<string> norms_string = DataSynchronizer.FromDoubleArraytoList(norms);
+                File.WriteAllLines(norm_dest_path, norms_string);
 
                 DataSynchronizer syncer = new DataSynchronizer(_root);
-                syncer.MergeMax(pressure_content, keystrokes_content, tasks_info[i]);
+                syncer.MergeMax(pressure_content, centeredValues, keystrokes_content, tasks_info[i]);
             }
         }
 
         // Removes unformatted pressure values from the dataset
         public void Preprocess()
         {
-            for (int i = 0; i < Constants.NUM_PARTICIPANTS; i++)
+            for (int i = 0; i < Constants.NUM_SESSIONS; i++)
             {
-                string path = Path.Combine(_root, "Pressure", "Participant" + (i + 1) + ".txt");
+                string path = Path.Combine(_root, "Pressure", "session" + (i + 1) + ".txt");
                 string[] pressure_content = DataReader.ReadText(path);
                 string[] content = Preprocessor.RemoveUnformattedPressuresAndFilter(pressure_content);
 
@@ -107,12 +122,12 @@ namespace DataSplitter
         {
             List<TaskInfo> result = new List<TaskInfo>();
 
-            if (lines.Length != Constants.NUM_PARTICIPANTS)
-                throw new ArgumentOutOfRangeException("Lines in task info file should be the same as the number of NUM_PARTICIPANTS");
+            if (lines.Length != Constants.NUM_SESSIONS)
+                throw new ArgumentOutOfRangeException("Lines in task info file should be the same as the number of NUM_SESSIONS");
 
             for (int i = 0; i < lines.Length; i++)
             {
-                TaskInfo task_info = new TaskInfo(i+1, lines[i]);
+                TaskInfo task_info = new TaskInfo(i+1, lines[i], this._participant_id);
                 result.Add(task_info);
             }
 

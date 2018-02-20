@@ -19,7 +19,7 @@ namespace DataAnalyzer.Parser.PressureFeatures
         }
 
         // parser the input file
-        public void Parse(string filepath)
+        public void Parse(string filepath, bool normed)
         {
             _pressures = new List<FRS>();
             string[] inputdata = DataReader.ReadText(filepath);
@@ -32,10 +32,11 @@ namespace DataAnalyzer.Parser.PressureFeatures
                 Regex regex = new Regex(@"^\d+$");
                 bool valid = true;
 
-                if (values.Length == Constants.NUM_SENSORS)
+                int sensorNum = (normed) ? 1 : Constants.NUM_SENSORS;
+                if (values.Length == sensorNum)
                 {
                     // validating
-                    for (int j = 0; j < Constants.NUM_SENSORS; j++)
+                    for (int j = 0; j < sensorNum; j++)
                     {
                         if (values[j] == "")
                             valid &= false;
@@ -44,7 +45,7 @@ namespace DataAnalyzer.Parser.PressureFeatures
                     // if valid
                     if (valid)
                     {
-                        FRS frs_pressures = new FRS(values);
+                        FRS frs_pressures = new FRS(values, normed);
                         _pressures.Add(frs_pressures);
                     }
                     

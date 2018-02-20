@@ -11,8 +11,14 @@ namespace DataSplitter
     public class TaskInfo
     {
         // members
+        private string _session_id;
+        public string SessionId {
+            get { return _session_id; }
+        }
+
         private string _participant_id;
-        public string ParticipantId {
+        public string ParticipantId
+        {
             get { return _participant_id; }
         }
 
@@ -32,7 +38,7 @@ namespace DataSplitter
         }
 
         // constructor
-        public TaskInfo(int participant_id, string task)
+        public TaskInfo(int session_id, string task, string participant_id)
         {
             // number of elements in the task file should be equal to NUM_TASKS + NUM_TASKS * 2
             string[] elems = task.Split(',');
@@ -43,7 +49,8 @@ namespace DataSplitter
             _task_order = new List<int>();
             _task_start = new List<DateTime>();
             _task_end = new List<DateTime>();
-            _participant_id = participant_id + "";
+            _session_id = session_id + "";
+            _participant_id = participant_id;
 
             // first NUM_TASKS elements store task order                
             for (int i = 0; i < Constants.NUM_TASKS; i++)

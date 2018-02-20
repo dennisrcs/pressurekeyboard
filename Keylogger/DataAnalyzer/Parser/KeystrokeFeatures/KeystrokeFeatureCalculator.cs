@@ -13,34 +13,46 @@ namespace DataAnalyzer.Parser.KeystrokeFeatures
         // returns feature vector for keystroke features
         public double[] CalculateFeatures(List<Keystroke> keystrokes)
         {
-            double[] result = new double[Constants.NUM_KEYSTROKE_FEATURES];
+            List<double> result = new List<double>();
 
             // creating instance of keystroke feature extractor
             IKeystrokeFeatureExtractor feature_extractor = new KeystrokeFeatureExtractor();
 
-            result[0] = feature_extractor.CalculateAverageTypingSpeed(keystrokes);
-            result[1] = feature_extractor.CalculateAverageDownDownTime(keystrokes);
-            result[2] = feature_extractor.CalculateAverageDownUpTime(keystrokes);
-            result[3] = feature_extractor.CalculateNumberOfErrorKeysPressed(keystrokes);
-            result[4] = feature_extractor.CalculateDownDownDigraphTime(keystrokes);
-            result[5] = feature_extractor.CalculateDownUpTimeFirstDigraphKey(keystrokes);
-            result[6] = feature_extractor.CalculateFirstUpNextDownDigraphTime(keystrokes);
-            result[7] = feature_extractor.CalculateDownUpTimeSecondDigraphKey(keystrokes);
-            result[8] = feature_extractor.CalculateDigraphDuration(keystrokes);
+            // Adding user features
+            result.Add(feature_extractor.CalculateAverageTypingSpeed(keystrokes));
+            result.Add(feature_extractor.CalculateTaskDuration(keystrokes));
 
-            /*
-             * trigraph features
-            result[10] = feature_extractor.CalculateDownDownTrigraphTime(keystrokes);
-            result[11] = feature_extractor.CalculateDownUpTimeFirstTrigraphKey(keystrokes);
-            result[12] = feature_extractor.CalculateFirstUpNextDownTrigraphTime(keystrokes);
-            result[13] = feature_extractor.CalculateDownDownSecondThirdTrigraphTime(keystrokes);
-            result[14] = feature_extractor.CalculateDownUpTimeSecondTrigraphKey(keystrokes);
-            result[15] = feature_extractor.CalculateSecondUpNextDownTrigraphTime(keystrokes);
-            result[16] = feature_extractor.CalculateDownUpTimeThirdTrigraphKey(keystrokes);
-            result[17] = feature_extractor.CalculateTrigraphDuration(keystrokes);
-            */
+            // Adding latency features
+            AverageStdDev ddTime = feature_extractor.CalculateAverageDownDownTime(keystrokes);
+            result.Add(ddTime.Average);
+            result.Add(ddTime.StdDev);
 
-            return result;
+            AverageStdDev duTime = feature_extractor.CalculateAverageDownUpTime(keystrokes);
+            result.Add(duTime.Average);
+            result.Add(duTime.StdDev);
+
+            AverageStdDev udTime = feature_extractor.CalculateFirstUpNextDownDigraphTime(keystrokes);
+            result.Add(udTime.Average);
+            result.Add(udTime.StdDev);
+
+            AverageStdDev digdurTime = feature_extractor.CalculateDigraphDuration(keystrokes);
+            result.Add(digdurTime.Average);
+            result.Add(digdurTime.StdDev);
+
+            // Adding frequency features
+            result.Add(feature_extractor.CalculateNumberOfErrorKeysPressed(keystrokes));
+            //result.Add(feature_extractor.CalculateNumberOfArrowKeysPressed(keystrokes));
+            //result.Add(feature_extractor.CalculateNumberOfShiftKeysPressed(keystrokes));
+            //result.Add(feature_extractor.CalculateNumberOfControlKeysPressed(keystrokes));
+
+            // Adding pause features
+            result.Add(feature_extractor.CalculateNumberOfPauses(keystrokes));
+
+            AverageStdDev pauseLenght = feature_extractor.CalculateAveragePauseLength(keystrokes);
+            result.Add(pauseLenght.Average);
+            result.Add(pauseLenght.StdDev);
+
+            return result.ToArray();
         }
     }
 }

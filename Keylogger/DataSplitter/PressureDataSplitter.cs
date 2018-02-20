@@ -20,7 +20,7 @@ namespace DataSplitter
         }
 
         // splits content into appropriate files
-        public void Split(TaskInfo taskInfo, string[] content)
+        public void Split(TaskInfo taskInfo, string[] content, DateTime pressureDate)
         {
             // initializing variables
             int j = 0;
@@ -33,7 +33,7 @@ namespace DataSplitter
                 // setting up output file
                 List<string> task_lines = new List<string>();
                 string dest_path = Path.Combine(_root, @"..\", "Parsed", "Pressure", "Task" + taskInfo.TaskOrder[j],
-                                                "Participant" + taskInfo.ParticipantId + ".txt");
+                                                "Participant" + taskInfo.SessionId + ".txt");
 
                 // retrieving start and end time for each task
                 DateTime start_time = taskInfo.TaskStart[j];

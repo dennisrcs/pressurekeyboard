@@ -7,14 +7,14 @@
         private int task_id; // 0 for relaxed typing, 1 for stressed (movie) and 2 for stress (expressive writing)
         public int TaskId { get { return task_id; } }
         
-        private string participant_id;
+        private string session_id;
         private double[] keystroke_features;
         private double[] pressure_features;
 
         // constructor
-        public FeatureSample(string participant_id, int task_id, double[] pressure_features, double[] keystroke_features)
+        public FeatureSample(string session_id, int task_id, double[] pressure_features, double[] keystroke_features)
         {
-            this.participant_id = participant_id;
+            this.session_id = session_id;
             this.task_id = task_id;
             this.pressure_features = pressure_features;
             this.keystroke_features = keystroke_features;

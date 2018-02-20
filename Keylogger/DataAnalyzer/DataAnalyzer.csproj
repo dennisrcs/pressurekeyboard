@@ -45,6 +45,7 @@
   <ItemGroup>
     <Compile Include="Constants.cs" />
     <Compile Include="IO\DataReader.cs" />
+    <Compile Include="Model\AverageStdDev.cs" />
     <Compile Include="Model\FRS.cs" />
     <Compile Include="Model\Keystroke.cs" />
     <Compile Include="Model\KeystrokeFRS.cs" />
@@ -56,6 +57,7 @@
     <Compile Include="Parser\KeystrokeFeatures\KeystrokeFeatureExtractor.cs" />
     <Compile Include="Parser\KeystrokeFeatures\KeystrokeFeaturesParser.cs" />
     <Compile Include="Model\FeatureSample.cs" />
+    <Compile Include="Parser\MathUtils.cs" />
     <Compile Include="Parser\Preprocessing\Preprocessor.cs" />
     <Compile Include="Parser\PressureFeatures\IPressureFeatureExtractor.cs" />
     <Compile Include="Parser\PressureFeatures\PressureFeatureCalculator.cs" />

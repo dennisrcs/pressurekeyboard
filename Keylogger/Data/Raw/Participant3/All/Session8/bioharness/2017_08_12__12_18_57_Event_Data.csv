@@ -1,0 +1,234 @@
+SeqNo, Year, Month, Day, ms, EventCode, Type, Source, EventID, EventSpecificData
+0,2017,08,12,44337432,192,System,Unknown,0,Unsupported additional data : 00:00:01:01:00:00:00:00:00:00
+0,2017,08,12,44337448,4160,Physiological,WornDetection,0,Worn status changed from 100% to   0%
+0,2017,08,12,44338055,4096,Physiological,RogAlgorithm,0,ROG status change from Green to Invalid.
+0,2017,08,12,44372029,4160,Physiological,WornDetection,0,Worn status changed from   0% to 100%
+0,2017,08,12,44375065,4096,Physiological,RogAlgorithm,0,ROG status change from Invalid to Green.
+0,2017,08,12,44380289,4160,Physiological,WornDetection,0,Worn status changed from 100% to   0%
+0,2017,08,12,44381066,4096,Physiological,RogAlgorithm,0,ROG status change from Green to Invalid.
+0,2017,08,12,44381067,4160,Physiological,WornDetection,0,Worn status changed from   0% to 100%
+0,2017,08,12,44382070,4096,Physiological,RogAlgorithm,0,ROG status change from Invalid to Green.
+0,2017,08,12,44382071,4160,Physiological,WornDetection,0,Worn status changed from 100% to   0%
+0,2017,08,12,44383067,4096,Physiological,RogAlgorithm,0,ROG status change from Green to Invalid.
+0,2017,08,12,44384071,4160,Physiological,WornDetection,0,Worn status changed from   0% to 100%
+0,2017,08,12,44386068,4160,Physiological,WornDetection,0,Worn status changed from 100% to   0%
+0,2017,08,12,44389029,4160,Physiological,WornDetection,0,Worn status changed from   0% to 100%
+0,2017,08,12,44391069,4096,Physiological,RogAlgorithm,0,ROG status change from Invalid to Green.
+0,2017,08,12,44395071,4160,Physiological,WornDetection,0,Worn status changed from 100% to   0%
+0,2017,08,12,44395174,4160,Physiological,WornDetection,0,Worn status changed from   0% to 100%
+0,2017,08,12,44399679,4160,Physiological,WornDetection,0,Worn status changed from 100% to   0%
+0,2017,08,12,44400070,4096,Physiological,RogAlgorithm,0,ROG status change from Green to Invalid.
+0,2017,08,12,44401035,4160,Physiological,WornDetection,0,Worn status changed from   0% to 100%
+0,2017,08,12,44401071,4096,Physiological,RogAlgorithm,0,ROG status change from Invalid to Green.
+0,2017,08,12,44434081,4224,Physiological,HeartRateCalculation,0,Heart rate Reliable changed from False to True
+0,2017,08,12,44438080,4224,Physiological,HeartRateCalculation,0,Heart rate Reliable changed from True to False
+0,2017,08,12,44443081,4224,Physiological,HeartRateCalculation,0,Heart rate Reliable changed from False to True
+0,2017,08,12,44465589,4160,Physiological,WornDetection,0,Worn status changed from 100% to   0%
+0,2017,08,12,44465590,4160,Physiological,WornDetection,0,Worn status changed from   0% to 100%
+0,2017,08,12,44466088,4160,Physiological,WornDetection,0,Worn status changed from 100% to   0%
+0,2017,08,12,44466088,4096,Physiological,RogAlgorithm,0,ROG status change from Green to Invalid.
+0,2017,08,12,44466089,4224,Physiological,HeartRateCalculation,0,Heart rate Reliable changed from True to False
+0,2017,08,12,44466089,4160,Physiological,WornDetection,0,Worn status changed from   0% to 100%
+0,2017,08,12,44466588,4160,Physiological,WornDetection,0,Worn status changed from 100% to   0%
+0,2017,08,12,44466589,4160,Physiological,WornDetection,0,Worn status changed from   0% to 100%
+0,2017,08,12,44467089,4096,Physiological,RogAlgorithm,0,ROG status change from Invalid to Green.
+0,2017,08,12,44467090,4224,Physiological,HeartRateCalculation,0,Heart rate Reliable changed from False to True
+0,2017,08,12,44469089,4224,Physiological,HeartRateCalculation,0,Heart rate Reliable changed from True to False
+0,2017,08,12,44500094,4224,Physiological,HeartRateCalculation,0,Heart rate Reliable changed from False to True
+0,2017,08,12,44505096,4224,Physiological,HeartRateCalculation,0,Heart rate Reliable changed from True to False
+0,2017,08,12,44510097,4224,Physiological,HeartRateCalculation,0,Heart rate Reliable changed from False to True
+0,2017,08,12,44511097,4224,Physiological,HeartRateCalculation,0,Heart rate Reliable changed from True to False
+0,2017,08,12,44519098,4224,Physiological,HeartRateCalculation,0,Heart rate Reliable changed from False to True
+0,2017,08,12,44531098,4160,Physiological,WornDetection,0,Worn status changed from 100% to   0%
+0,2017,08,12,44531098,4096,Physiological,RogAlgorithm,0,ROG status change from Green to Invalid.
+0,2017,08,12,44531099,4224,Physiological,HeartRateCalculation,0,Heart rate Reliable changed from True to False
+0,2017,08,12,44531099,4160,Physiological,WornDetection,0,Worn status changed from   0% to 100%
+0,2017,08,12,44531598,4160,Physiological,WornDetection,0,Worn status changed from 100% to   0%
+0,2017,08,12,44531599,4160,Physiological,WornDetection,0,Worn status changed from   0% to 100%
+0,2017,08,12,44532101,4096,Physiological,RogAlgorithm,0,ROG status change from Invalid to Green.
+0,2017,08,12,44532102,4224,Physiological,HeartRateCalculation,0,Heart rate Reliable changed from False to True
+0,2017,08,12,44585112,4224,Physiological,HeartRateCalculation,0,Heart rate Reliable changed from True to False
+0,2017,08,12,44586112,4224,Physiological,HeartRateCalculation,0,Heart rate Reliable changed from False to True
+0,2017,08,12,44622117,4224,Physiological,HeartRateCalculation,0,Heart rate Reliable changed from True to False
+0,2017,08,12,44637118,4224,Physiological,HeartRateCalculation,0,Heart rate Reliable changed from False to True
+0,2017,08,12,44647121,4224,Physiological,HeartRateCalculation,0,Heart rate Reliable changed from True to False
+0,2017,08,12,44661899,4160,Physiological,WornDetection,0,Worn status changed from 100% to   0%
+0,2017,08,12,44662123,4096,Physiological,RogAlgorithm,0,ROG status change from Green to Invalid.
+0,2017,08,12,44663219,4160,Physiological,WornDetection,0,Worn status changed from   0% to 100%
+0,2017,08,12,44664123,4096,Physiological,RogAlgorithm,0,ROG status change from Invalid to Green.
+0,2017,08,12,44668124,4224,Physiological,HeartRateCalculation,0,Heart rate Reliable changed from False to True
+0,2017,08,12,44714135,4224,Physiological,HeartRateCalculation,0,Heart rate Reliable changed from True to False
+0,2017,08,12,44717135,4224,Physiological,HeartRateCalculation,0,Heart rate Reliable changed from False to True
+0,2017,08,12,44793649,4160,Physiological,WornDetection,0,Worn status changed from 100% to   0%
+0,2017,08,12,44793650,4160,Physiological,WornDetection,0,Worn status changed from   0% to 100%
+0,2017,08,12,44958207,4224,Physiological,HeartRateCalculation,0,Heart rate Reliable changed from True to False
+0,2017,08,12,44965207,4224,Physiological,HeartRateCalculation,0,Heart rate Reliable changed from False to True
+0,2017,08,12,44967207,4224,Physiological,HeartRateCalculation,0,Heart rate Reliable changed from True to False
+0,2017,08,12,44972207,4224,Physiological,HeartRateCalculation,0,Heart rate Reliable changed from False to True
+0,2017,08,12,44989709,4160,Physiological,WornDetection,0,Worn status changed from 100% to   0%
+0,2017,08,12,44989710,4160,Physiological,WornDetection,0,Worn status changed from   0% to 100%
+0,2017,08,12,44990709,4160,Physiological,WornDetection,0,Worn status changed from 100% to   0%
+0,2017,08,12,44990710,4160,Physiological,WornDetection,0,Worn status changed from   0% to 100%
+0,2017,08,12,45055725,4160,Physiological,WornDetection,0,Worn status changed from 100% to   0%
+0,2017,08,12,45055726,4160,Physiological,WornDetection,0,Worn status changed from   0% to 100%
+0,2017,08,12,45121491,4160,Physiological,WornDetection,0,Worn status changed from 100% to   0%
+0,2017,08,12,45121492,4160,Physiological,WornDetection,0,Worn status changed from   0% to 100%
+0,2017,08,12,45121741,4160,Physiological,WornDetection,0,Worn status changed from 100% to   0%
+0,2017,08,12,45121742,4160,Physiological,WornDetection,0,Worn status changed from   0% to 100%
+0,2017,08,12,45186761,4160,Physiological,WornDetection,0,Worn status changed from 100% to   0%
+0,2017,08,12,45186762,4160,Physiological,WornDetection,0,Worn status changed from   0% to 100%
+0,2017,08,12,45187761,4160,Physiological,WornDetection,0,Worn status changed from 100% to   0%
+0,2017,08,12,45187762,4160,Physiological,WornDetection,0,Worn status changed from   0% to 100%
+0,2017,08,12,45227277,4224,Physiological,HeartRateCalculation,0,Heart rate Reliable changed from True to False
+0,2017,08,12,45235277,4224,Physiological,HeartRateCalculation,0,Heart rate Reliable changed from False to True
+0,2017,08,12,45252276,4160,Physiological,WornDetection,0,Worn status changed from 100% to   0%
+0,2017,08,12,45252276,4096,Physiological,RogAlgorithm,0,ROG status change from Green to Invalid.
+0,2017,08,12,45252277,4224,Physiological,HeartRateCalculation,0,Heart rate Reliable changed from True to False
+0,2017,08,12,45252277,4160,Physiological,WornDetection,0,Worn status changed from   0% to 100%
+0,2017,08,12,45252526,4160,Physiological,WornDetection,0,Worn status changed from 100% to   0%
+0,2017,08,12,45252527,4160,Physiological,WornDetection,0,Worn status changed from   0% to 100%
+0,2017,08,12,45252776,4160,Physiological,WornDetection,0,Worn status changed from 100% to   0%
+0,2017,08,12,45252777,4160,Physiological,WornDetection,0,Worn status changed from   0% to 100%
+0,2017,08,12,45253277,4160,Physiological,WornDetection,0,Worn status changed from 100% to   0%
+0,2017,08,12,45253278,4160,Physiological,WornDetection,0,Worn status changed from   0% to 100%
+0,2017,08,12,45254276,4096,Physiological,RogAlgorithm,0,ROG status change from Invalid to Green.
+0,2017,08,12,45312067,4160,Physiological,WornDetection,0,Worn status changed from 100% to   0%
+0,2017,08,12,45312287,4096,Physiological,RogAlgorithm,0,ROG status change from Green to Invalid.
+0,2017,08,12,45313208,4160,Physiological,WornDetection,0,Worn status changed from   0% to 100%
+0,2017,08,12,45313288,4096,Physiological,RogAlgorithm,0,ROG status change from Invalid to Green.
+0,2017,08,12,45317411,4160,Physiological,WornDetection,0,Worn status changed from 100% to   0%
+0,2017,08,12,45318287,4096,Physiological,RogAlgorithm,0,ROG status change from Green to Invalid.
+0,2017,08,12,45318288,4160,Physiological,WornDetection,0,Worn status changed from   0% to 100%
+0,2017,08,12,45318787,4160,Physiological,WornDetection,0,Worn status changed from 100% to   0%
+0,2017,08,12,45318788,4160,Physiological,WornDetection,0,Worn status changed from   0% to 100%
+0,2017,08,12,45319287,4096,Physiological,RogAlgorithm,0,ROG status change from Invalid to Green.
+0,2017,08,12,45319288,4224,Physiological,HeartRateCalculation,0,Heart rate Reliable changed from False to True
+0,2017,08,12,45319787,4160,Physiological,WornDetection,0,Worn status changed from 100% to   0%
+0,2017,08,12,45319788,4160,Physiological,WornDetection,0,Worn status changed from   0% to 100%
+0,2017,08,12,45329291,4224,Physiological,HeartRateCalculation,0,Heart rate Reliable changed from True to False
+0,2017,08,12,45333294,4224,Physiological,HeartRateCalculation,0,Heart rate Reliable changed from False to True
+0,2017,08,12,45337296,4224,Physiological,HeartRateCalculation,0,Heart rate Reliable changed from True to False
+0,2017,08,12,45351300,4224,Physiological,HeartRateCalculation,0,Heart rate Reliable changed from False to True
+0,2017,08,12,45352299,4224,Physiological,HeartRateCalculation,0,Heart rate Reliable changed from True to False
+0,2017,08,12,45352486,4160,Physiological,WornDetection,0,Worn status changed from 100% to   0%
+0,2017,08,12,45353298,4096,Physiological,RogAlgorithm,0,ROG status change from Green to Invalid.
+0,2017,08,12,45354191,4160,Physiological,WornDetection,0,Worn status changed from   0% to 100%
+0,2017,08,12,45354299,4096,Physiological,RogAlgorithm,0,ROG status change from Invalid to Green.
+0,2017,08,12,45376304,4224,Physiological,HeartRateCalculation,0,Heart rate Reliable changed from False to True
+0,2017,08,12,45423815,4160,Physiological,WornDetection,0,Worn status changed from 100% to   0%
+0,2017,08,12,45423816,4160,Physiological,WornDetection,0,Worn status changed from   0% to 100%
+0,2017,08,12,45425816,4160,Physiological,WornDetection,0,Worn status changed from 100% to   0%
+0,2017,08,12,45425817,4160,Physiological,WornDetection,0,Worn status changed from   0% to 100%
+0,2017,08,12,45426315,4160,Physiological,WornDetection,0,Worn status changed from 100% to   0%
+0,2017,08,12,45426315,4096,Physiological,RogAlgorithm,0,ROG status change from Green to Invalid.
+0,2017,08,12,45426316,4224,Physiological,HeartRateCalculation,0,Heart rate Reliable changed from True to False
+0,2017,08,12,45426316,4160,Physiological,WornDetection,0,Worn status changed from   0% to 100%
+0,2017,08,12,45426815,4160,Physiological,WornDetection,0,Worn status changed from 100% to   0%
+0,2017,08,12,45426816,4160,Physiological,WornDetection,0,Worn status changed from   0% to 100%
+0,2017,08,12,45427316,4096,Physiological,RogAlgorithm,0,ROG status change from Invalid to Green.
+0,2017,08,12,45445321,4224,Physiological,HeartRateCalculation,0,Heart rate Reliable changed from False to True
+0,2017,08,12,45448821,4160,Physiological,WornDetection,0,Worn status changed from 100% to   0%
+0,2017,08,12,45448822,4160,Physiological,WornDetection,0,Worn status changed from   0% to 100%
+0,2017,08,12,45449320,4160,Physiological,WornDetection,0,Worn status changed from 100% to   0%
+0,2017,08,12,45449320,4096,Physiological,RogAlgorithm,0,ROG status change from Green to Invalid.
+0,2017,08,12,45449321,4224,Physiological,HeartRateCalculation,0,Heart rate Reliable changed from True to False
+0,2017,08,12,45449321,4160,Physiological,WornDetection,0,Worn status changed from   0% to 100%
+0,2017,08,12,45449570,4160,Physiological,WornDetection,0,Worn status changed from 100% to   0%
+0,2017,08,12,45449571,4160,Physiological,WornDetection,0,Worn status changed from   0% to 100%
+0,2017,08,12,45449820,4160,Physiological,WornDetection,0,Worn status changed from 100% to   0%
+0,2017,08,12,45449821,4160,Physiological,WornDetection,0,Worn status changed from   0% to 100%
+0,2017,08,12,45450321,4096,Physiological,RogAlgorithm,0,ROG status change from Invalid to Green.
+0,2017,08,12,45450322,4224,Physiological,HeartRateCalculation,0,Heart rate Reliable changed from False to True
+0,2017,08,12,45491325,4224,Physiological,HeartRateCalculation,0,Heart rate Reliable changed from True to False
+0,2017,08,12,45514039,4160,Physiological,WornDetection,0,Worn status changed from 100% to   0%
+0,2017,08,12,45514331,4096,Physiological,RogAlgorithm,0,ROG status change from Green to Invalid.
+0,2017,08,12,45515468,4160,Physiological,WornDetection,0,Worn status changed from   0% to 100%
+0,2017,08,12,45516332,4096,Physiological,RogAlgorithm,0,ROG status change from Invalid to Green.
+0,2017,08,12,45521340,4224,Physiological,HeartRateCalculation,0,Heart rate Reliable changed from False to True
+0,2017,08,12,45919435,4224,Physiological,HeartRateCalculation,0,Heart rate Reliable changed from True to False
+0,2017,08,12,45922435,4224,Physiological,HeartRateCalculation,0,Heart rate Reliable changed from False to True
+0,2017,08,12,45930437,4224,Physiological,HeartRateCalculation,0,Heart rate Reliable changed from True to False
+0,2017,08,12,45945438,4224,Physiological,HeartRateCalculation,0,Heart rate Reliable changed from False to True
+0,2017,08,12,45972950,4160,Physiological,WornDetection,0,Worn status changed from 100% to   0%
+0,2017,08,12,45972951,4160,Physiological,WornDetection,0,Worn status changed from   0% to 100%
+0,2017,08,12,45973451,4160,Physiological,WornDetection,0,Worn status changed from 100% to   0%
+0,2017,08,12,45973451,4096,Physiological,RogAlgorithm,0,ROG status change from Green to Invalid.
+0,2017,08,12,45973452,4224,Physiological,HeartRateCalculation,0,Heart rate Reliable changed from True to False
+0,2017,08,12,45973452,4160,Physiological,WornDetection,0,Worn status changed from   0% to 100%
+0,2017,08,12,45973951,4160,Physiological,WornDetection,0,Worn status changed from 100% to   0%
+0,2017,08,12,45973952,4160,Physiological,WornDetection,0,Worn status changed from   0% to 100%
+0,2017,08,12,45974450,4096,Physiological,RogAlgorithm,0,ROG status change from Invalid to Green.
+0,2017,08,12,45974451,4224,Physiological,HeartRateCalculation,0,Heart rate Reliable changed from False to True
+0,2017,08,12,45975455,4224,Physiological,HeartRateCalculation,0,Heart rate Reliable changed from True to False
+0,2017,08,12,45978453,4224,Physiological,HeartRateCalculation,0,Heart rate Reliable changed from False to True
+0,2017,08,12,45984453,4224,Physiological,HeartRateCalculation,0,Heart rate Reliable changed from True to False
+0,2017,08,12,45990453,4224,Physiological,HeartRateCalculation,0,Heart rate Reliable changed from False to True
+0,2017,08,12,46038958,4160,Physiological,WornDetection,0,Worn status changed from 100% to   0%
+0,2017,08,12,46038959,4160,Physiological,WornDetection,0,Worn status changed from   0% to 100%
+0,2017,08,12,46039461,4160,Physiological,WornDetection,0,Worn status changed from 100% to   0%
+0,2017,08,12,46039461,4096,Physiological,RogAlgorithm,0,ROG status change from Green to Invalid.
+0,2017,08,12,46039462,4224,Physiological,HeartRateCalculation,0,Heart rate Reliable changed from True to False
+0,2017,08,12,46039462,4160,Physiological,WornDetection,0,Worn status changed from   0% to 100%
+0,2017,08,12,46040461,4096,Physiological,RogAlgorithm,0,ROG status change from Invalid to Green.
+0,2017,08,12,46040462,4224,Physiological,HeartRateCalculation,0,Heart rate Reliable changed from False to True
+0,2017,08,12,46104477,4160,Physiological,WornDetection,0,Worn status changed from 100% to   0%
+0,2017,08,12,46104477,4096,Physiological,RogAlgorithm,0,ROG status change from Green to Invalid.
+0,2017,08,12,46104478,4224,Physiological,HeartRateCalculation,0,Heart rate Reliable changed from True to False
+0,2017,08,12,46104478,4160,Physiological,WornDetection,0,Worn status changed from   0% to 100%
+0,2017,08,12,46104977,4160,Physiological,WornDetection,0,Worn status changed from 100% to   0%
+0,2017,08,12,46104978,4160,Physiological,WornDetection,0,Worn status changed from   0% to 100%
+0,2017,08,12,46105477,4096,Physiological,RogAlgorithm,0,ROG status change from Invalid to Green.
+0,2017,08,12,46105478,4224,Physiological,HeartRateCalculation,0,Heart rate Reliable changed from False to True
+0,2017,08,12,46106482,4224,Physiological,HeartRateCalculation,0,Heart rate Reliable changed from True to False
+0,2017,08,12,46110482,4224,Physiological,HeartRateCalculation,0,Heart rate Reliable changed from False to True
+0,2017,08,12,46169987,4160,Physiological,WornDetection,0,Worn status changed from 100% to   0%
+0,2017,08,12,46169988,4160,Physiological,WornDetection,0,Worn status changed from   0% to 100%
+0,2017,08,12,46170490,4160,Physiological,WornDetection,0,Worn status changed from 100% to   0%
+0,2017,08,12,46170490,4096,Physiological,RogAlgorithm,0,ROG status change from Green to Invalid.
+0,2017,08,12,46170491,4224,Physiological,HeartRateCalculation,0,Heart rate Reliable changed from True to False
+0,2017,08,12,46171022,4160,Physiological,WornDetection,0,Worn status changed from   0% to 100%
+0,2017,08,12,46171490,4096,Physiological,RogAlgorithm,0,ROG status change from Invalid to Green.
+0,2017,08,12,46174347,4160,Physiological,WornDetection,0,Worn status changed from 100% to   0%
+0,2017,08,12,46174491,4096,Physiological,RogAlgorithm,0,ROG status change from Green to Invalid.
+0,2017,08,12,46175570,4160,Physiological,WornDetection,0,Worn status changed from   0% to 100%
+0,2017,08,12,46177481,4160,Physiological,WornDetection,0,Worn status changed from 100% to   0%
+0,2017,08,12,46178642,4160,Physiological,WornDetection,0,Worn status changed from   0% to 100%
+0,2017,08,12,46180492,4096,Physiological,RogAlgorithm,0,ROG status change from Invalid to Green.
+0,2017,08,12,46191494,4224,Physiological,HeartRateCalculation,0,Heart rate Reliable changed from False to True
+0,2017,08,12,46192494,4224,Physiological,HeartRateCalculation,0,Heart rate Reliable changed from True to False
+0,2017,08,12,46194162,4160,Physiological,WornDetection,0,Worn status changed from 100% to   0%
+0,2017,08,12,46194494,4096,Physiological,RogAlgorithm,0,ROG status change from Green to Invalid.
+0,2017,08,12,46195013,4160,Physiological,WornDetection,0,Worn status changed from   0% to 100%
+0,2017,08,12,46195493,4096,Physiological,RogAlgorithm,0,ROG status change from Invalid to Green.
+0,2017,08,12,46199496,4224,Physiological,HeartRateCalculation,0,Heart rate Reliable changed from False to True
+0,2017,08,12,46246510,4160,Physiological,WornDetection,0,Worn status changed from 100% to   0%
+0,2017,08,12,46246510,4096,Physiological,RogAlgorithm,0,ROG status change from Green to Invalid.
+0,2017,08,12,46246511,4224,Physiological,HeartRateCalculation,0,Heart rate Reliable changed from True to False
+0,2017,08,12,46246511,4160,Physiological,WornDetection,0,Worn status changed from   0% to 100%
+0,2017,08,12,46247510,4096,Physiological,RogAlgorithm,0,ROG status change from Invalid to Green.
+0,2017,08,12,46247511,4224,Physiological,HeartRateCalculation,0,Heart rate Reliable changed from False to True
+0,2017,08,12,46250012,4160,Physiological,WornDetection,0,Worn status changed from 100% to   0%
+0,2017,08,12,46250013,4160,Physiological,WornDetection,0,Worn status changed from   0% to 100%
+0,2017,08,12,46251012,4160,Physiological,WornDetection,0,Worn status changed from 100% to   0%
+0,2017,08,12,46251013,4160,Physiological,WornDetection,0,Worn status changed from   0% to 100%
+0,2017,08,12,46251512,4160,Physiological,WornDetection,0,Worn status changed from 100% to   0%
+0,2017,08,12,46251512,4096,Physiological,RogAlgorithm,0,ROG status change from Green to Invalid.
+0,2017,08,12,46251513,4224,Physiological,HeartRateCalculation,0,Heart rate Reliable changed from True to False
+0,2017,08,12,46251513,4160,Physiological,WornDetection,0,Worn status changed from   0% to 100%
+0,2017,08,12,46252011,4160,Physiological,WornDetection,0,Worn status changed from 100% to   0%
+0,2017,08,12,46252012,4160,Physiological,WornDetection,0,Worn status changed from   0% to 100%
+0,2017,08,12,46252511,4160,Physiological,WornDetection,0,Worn status changed from 100% to   0%
+0,2017,08,12,46252512,4160,Physiological,WornDetection,0,Worn status changed from   0% to 100%
+0,2017,08,12,46253513,4224,Physiological,HeartRateCalculation,0,Heart rate Reliable changed from False to True
+0,2017,08,12,46254511,4096,Physiological,RogAlgorithm,0,ROG status change from Invalid to Green.
+0,2017,08,12,46255513,4224,Physiological,HeartRateCalculation,0,Heart rate Reliable changed from True to False
+0,2017,08,12,46256512,4224,Physiological,HeartRateCalculation,0,Heart rate Reliable changed from False to True
+0,2017,08,12,46259012,4160,Physiological,WornDetection,0,Worn status changed from 100% to   0%
+0,2017,08,12,46259013,4160,Physiological,WornDetection,0,Worn status changed from   0% to 100%
+0,2017,08,12,46259512,4160,Physiological,WornDetection,0,Worn status changed from 100% to   0%
+0,2017,08,12,46259512,4096,Physiological,RogAlgorithm,0,ROG status change from Green to Invalid.
+0,2017,08,12,46259513,4224,Physiological,HeartRateCalculation,0,Heart rate Reliable changed from True to False
+0,2017,08,12,46261639,64,System,Button,0,
+0,2017,08,12,46264514,64,System,Button,0,
+0,2017,08,12,46267604,4160,Physiological,WornDetection,0,Worn status changed from   0% to 100%
+0,2017,08,12,46268516,4096,Physiological,RogAlgorithm,0,ROG status change from Invalid to Green.

@@ -21,15 +21,15 @@ namespace DataSplitter
         }
 
         // split content into appropriate keystroke files
-        public void Split(TaskInfo taskInfo, string[] content)
+        public void Split(TaskInfo taskInfo, string[] content, DateTime keystrokeDateTime)
         {
             int j = 0;
             while (j < taskInfo.TaskOrder.Count)
             {
                 // setting up output file
                 List<string> task_lines = new List<string>();
-                string dest_path = Path.Combine(_root, @"..\", "Parsed", "Keystrokes", "Task" + taskInfo.TaskOrder[j],
-                                                "Participant" + taskInfo.ParticipantId + ".txt");
+                string dest_path = Path.Combine(_root, @"..\..\", "Parsed", taskInfo.ParticipantId, "Keystrokes", "Task" + taskInfo.TaskOrder[j],
+                                                "session" + taskInfo.SessionId + ".txt");
 
                 // getting task's start and end time
                 DateTime start_time = taskInfo.TaskStart[j];
@@ -38,7 +38,7 @@ namespace DataSplitter
                 // printing keystrokes collected during the task interval to a file
                 for (int i = 0; i < content.Length; i++)
                 {
-                    Keystroke keystroke = new Keystroke(content[i],1);
+                    Keystroke keystroke = new Keystroke(content[i],1,keystrokeDateTime);
                     
                     if (keystroke.Timestamp < start_time)
                         continue;
@@ -46,12 +46,10 @@ namespace DataSplitter
                         if (keystroke.Timestamp < end_time)
                             task_lines.Add(content[i]);
                         else
-                        {
-                            j += 1;
-                            break;
-                        }                               
+                            break;                            
                 }
 
+                j += 1;
                 // printing to file
                 File.WriteAllLines(dest_path, task_lines);
             }

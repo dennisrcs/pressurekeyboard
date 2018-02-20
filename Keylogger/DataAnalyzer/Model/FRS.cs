@@ -17,11 +17,12 @@ namespace DataAnalyzer.Model
         }
 
         // constructor
-        public FRS(string[] strvalues)
+        public FRS(string[] strvalues, bool normed)
         {
-            _values = new double[Constants.NUM_SENSORS];
+            int numSensors = (normed) ? 1 : Constants.NUM_SENSORS;
+            _values = new double[numSensors];
 
-            for (int i = 0; i < Constants.NUM_SENSORS; i++)
+            for (int i = 0; i < numSensors; i++)
                 _values[i] = Double.Parse(strvalues[i]);
 
         }

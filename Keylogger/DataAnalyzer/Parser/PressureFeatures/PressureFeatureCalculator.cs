@@ -12,16 +12,18 @@ namespace DataAnalyzer.Parser.PressureFeatures
     {
         public double[] CalculateFeatures(List<FRS> pressures)
         {
+            int numSensors = pressures[0].Values.Length;
+
             // variables
             int num_pressures = pressures.Count;
-            double[] means = new double[Constants.NUM_SENSORS];
-            double[] stddevs = new double[Constants.NUM_SENSORS];
-            double[] mins = new double[Constants.NUM_SENSORS];
-            double[] maxs = new double[Constants.NUM_SENSORS];
-            double[] pecs = new double[Constants.NUM_SENSORS];
-            double[] necs = new double[Constants.NUM_SENSORS];
+            double[] means = new double[numSensors];
+            double[] stddevs = new double[numSensors];
+            double[] mins = new double[numSensors];
+            double[] maxs = new double[numSensors];
+            double[] pecs = new double[numSensors];
+            double[] necs = new double[numSensors];
 
-            double[] medians = new double[Constants.NUM_SENSORS];
+            double[] medians = new double[numSensors];
 
             // creating instance of pressure feature extractor
             IPressureFeatureExtractor feature_extractor = new PressureFeatureExtractor();
@@ -32,19 +34,19 @@ namespace DataAnalyzer.Parser.PressureFeatures
             // Initializing lists
             List<List<double>> pressures_sensor = new List<List<double>>();
             List<List<double>> norm_pressures_sensor = new List<List<double>>();
-            for (int j = 0; j < Constants.NUM_SENSORS; j++)
+            for (int j = 0; j < numSensors; j++)
             {
                 pressures_sensor.Add(new List<double>());
                 norm_pressures_sensor.Add(new List<double>());
             }
 
             // loading pressure data into arrays indexed by sensor number
-            for (int j = 0; j < Constants.NUM_SENSORS; j++) 
+            for (int j = 0; j < numSensors; j++) 
                 for (int i = 0; i < num_pressures; i++)
                     pressures_sensor[j].Add(pressures[i].Values[j]);
 
             // calculating mean and standard deviation
-            for (int i = 0; i < Constants.NUM_SENSORS; i++)
+            for (int i = 0; i < numSensors; i++)
             {
                 //medians[i] = feature_extractor.CalculateMedian(pressures_sensor[i]);
                 means[i] = feature_extractor.CalculateMean(pressures_sensor[i]);
@@ -54,11 +56,11 @@ namespace DataAnalyzer.Parser.PressureFeatures
             }
 
             // normalizing data
-            for (int i = 0; i < Constants.NUM_SENSORS; i++)
+            for (int i = 0; i < numSensors; i++)
                 norm_pressures_sensor[i] = feature_extractor.NormalizeData(pressures_sensor[i]);
 
             // calculating min, max, positive center energy, and negative center energy
-            for (int i = 0; i < Constants.NUM_SENSORS; i++)
+            for (int i = 0; i < numSensors; i++)
             {
                 pecs[i] = feature_extractor.CalculatePositiveEnergyCenter(norm_pressures_sensor[i]);
                 necs[i] = feature_extractor.CalculateNegativeEnergyCenter(norm_pressures_sensor[i]);
@@ -66,7 +68,7 @@ namespace DataAnalyzer.Parser.PressureFeatures
 
             // concatenating individual features per sensor (and forming feature vector)
             features.AddRange(means);
-            //features.AddRange(stddevs);
+            features.AddRange(stddevs);
             //features.AddRange(mins);
             //features.AddRange(maxs);
             //features.AddRange(pecs);

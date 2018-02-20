@@ -9,36 +9,46 @@ namespace DataAnalyzer.Parser.KeystrokeFeatures
 {
     public interface IKeystrokeFeatureExtractor
     {
+        // Calculates average typing speed
         double CalculateAverageTypingSpeed(List<Keystroke> keystrokes);
-
-        // calculates the average down down time
-        double CalculateAverageDownDownTime(List<Keystroke> keystrokes);
-
-        // calculates the average down up time
-        double CalculateAverageDownUpTime(List<Keystroke> keystrokes);
-
-        // counts number of error keys (delete or backspace) pressed 
-        double CalculateNumberOfErrorKeysPressed(List<Keystroke> keystrokes);
 
         // calculates duration of task
         double CalculateTaskDuration(List<Keystroke> keystrokes);
 
-        /* new features */
+        // calculates the average down down time
+        AverageStdDev CalculateAverageDownDownTime(List<Keystroke> keystrokes);
 
-        // duration between 1st and 2nd down keys of the digraphs
-        double CalculateDownDownDigraphTime(List<Keystroke> keystrokes);
-
-        // average duration of the 1st key of the digraphs
-        double CalculateDownUpTimeFirstDigraphKey(List<Keystroke> keystrokes);
+        // calculates the average down up time
+        AverageStdDev CalculateAverageDownUpTime(List<Keystroke> keystrokes);
 
         // Calculate the average duration between 1st key up and next key down of the digraphs
-        double CalculateFirstUpNextDownDigraphTime(List<Keystroke> keystrokes);
-        
-        // average duration of the 2nd key of the digraphs
-        double CalculateDownUpTimeSecondDigraphKey(List<Keystroke> keystrokes);
+        AverageStdDev CalculateFirstUpNextDownDigraphTime(List<Keystroke> keystrokes);
 
         // average duration of the digraphs (1st key down, 2nd key up)
-        double CalculateDigraphDuration(List<Keystroke> keystrokes);
+        AverageStdDev CalculateDigraphDuration(List<Keystroke> keystrokes);
+
+        // counts number of error keys (delete or backspace) pressed 
+        double CalculateNumberOfErrorKeysPressed(List<Keystroke> keystrokes);
+
+        // counts number of arrow keys pressed 
+        double CalculateNumberOfArrowKeysPressed(List<Keystroke> keystrokes);
+
+        // counts number of shift keys pressed 
+        double CalculateNumberOfShiftKeysPressed(List<Keystroke> keystrokes);
+
+        // counts number of control keys pressed 
+        double CalculateNumberOfControlKeysPressed(List<Keystroke> keystrokes);
+
+        // Calculates number of pauses (no activity > 0.5s)
+        double CalculateNumberOfPauses(List<Keystroke> keystrokes);
+
+        // Calculates the average pause length (no activity > 0.5s)
+        AverageStdDev CalculateAveragePauseLength(List<Keystroke> keystrokes);
+
+        /* new features */
+
+        // average duration of the 2nd key of the digraphs
+        double CalculateDownUpTimeSecondDigraphKey(List<Keystroke> keystrokes);
 
         // average duration between 1st and 2nd down keys of the trigraphs
         double CalculateDownDownTrigraphTime(List<Keystroke> keystrokes);

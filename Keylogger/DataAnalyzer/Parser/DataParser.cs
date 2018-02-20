@@ -18,52 +18,58 @@ namespace DataAnalyzer.Parser
     {
         // member
         private string _root;
+        private string _participant_id;
 
         // constructor
-        public DataParser(string root_dir)
+        public DataParser(string root_dir, string participant_id)
         {
             this._root = root_dir;
+            this._participant_id = participant_id;
         }
 
         // parses features extract and build list of feature samples
-        public List<FeatureSample> Parse()
+        public List<FeatureSample> Parse(bool shouldNormalize)
         {
             List<FeatureSample> data = new List<FeatureSample>();
-
-            Preprocessor preprocessor = new Preprocessor(_root);
-            List<List<double>> averages = preprocessor.ComputeAverages();
-            preprocessor.Filter(averages);
-            preprocessor.Normalize(averages);
-            preprocessor.ComputeNorm();
+            Preprocessor preprocessor = new Preprocessor(_root, _participant_id);
+            
+            if (shouldNormalize)
+            {
+                List<List<double>> averages = preprocessor.ComputeAverages();
+                preprocessor.SubtractMean(averages);
+                //preprocessor.SubtractMovingAverage();
+                //preprocessor.ComputeNorm();
+            }   
 
             for (int i = 0; i < Constants.NUM_TASKS; i++)
             {
-                for (int j = 0; j < Constants.NUM_PARTICIPANTS; j++)
+                for (int j = 0; j < Constants.NUM_SESSIONS; j++)
                 {
                     // getting task and participant's info
-                    string participant_id = j + "";
                     int task_id = i;
 
-                    // parsing pressure features
-                    string pressure_path = Path.Combine(_root, "KeystrokePressure", "Task" + (i+1), "Participant" + (j + 1) + ".txt");
-                    PressureFeaturesParser pressure_parser = new PressureFeaturesParser();
-                    pressure_parser.Parse(pressure_path);
-
-                    // calculating pressure features
-                    PressureFeatureCalculator pressure_calculator = new PressureFeatureCalculator();
-                    double[] pressure_features = pressure_calculator.CalculateFeatures(pressure_parser.Pressures);
-
                     // parsing keystroke features
-                    string keystroke_path = Path.Combine(_root, "Keystrokes", "Task" + (i + 1), "Participant" + (j + 1) + ".txt");
+                    string keystroke_path = Path.Combine(_root, _participant_id, "Keystrokes", "Task" + (i + 1), "session" + (j + 1) + ".txt");
                     KeystrokeFeaturesParser keystroke_parser = new KeystrokeFeaturesParser();
-                    keystroke_parser.Parse(keystroke_path);
+                    keystroke_parser.Parse(keystroke_path, true);
+
+                    int firstMinuteIndex = KeystrokeFeaturesParser.FindFirstMinuteCutoffIndex(keystroke_parser.Keystrokes);
 
                     // calculates keystroke features
                     KeystrokeFeatureCalculator keystroke_calculator = new KeystrokeFeatureCalculator();
-                    double[] keystroke_features = keystroke_calculator.CalculateFeatures(keystroke_parser.Keystrokes);
+                    double[] keystroke_features = keystroke_calculator.CalculateFeatures(keystroke_parser.Keystrokes.GetRange(0, firstMinuteIndex*2));
+
+                    // parsing pressure features
+                    string pressure_path = Path.Combine(_root, _participant_id, "PressureCentralized", "Task" + (i + 1), "session" + (j + 1) + ".txt");
+                    PressureFeaturesParser pressure_parser = new PressureFeaturesParser();
+                    pressure_parser.Parse(pressure_path, true);
+
+                    // calculating pressure features
+                    PressureFeatureCalculator pressure_calculator = new PressureFeatureCalculator();
+                    double[] pressure_features = pressure_calculator.CalculateFeatures(pressure_parser.Pressures.GetRange(0, firstMinuteIndex));
 
                     // concatenates data generated and add to FeatureSample list
-                    FeatureSample sample = new FeatureSample(participant_id, task_id, pressure_features, keystroke_features);
+                    FeatureSample sample = new FeatureSample(_participant_id, task_id, pressure_features, keystroke_features);
                     data.Add(sample);
                 }
             }

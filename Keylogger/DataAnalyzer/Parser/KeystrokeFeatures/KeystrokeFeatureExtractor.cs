@@ -10,6 +10,8 @@ namespace DataAnalyzer.Parser.KeystrokeFeatures
     // Repo with all keystroke feature functions
     public class KeystrokeFeatureExtractor : IKeystrokeFeatureExtractor
     {
+        /* User features */
+
         // calculate average typing speed
         public double CalculateAverageTypingSpeed(List<Keystroke> keystrokes)
         {
@@ -23,40 +25,178 @@ namespace DataAnalyzer.Parser.KeystrokeFeatures
                     counter += 1;
             }
 
-            double diff_ms = CalculateTaskDuration(keystrokes);
+            double diff_s = CalculateTaskDuration(keystrokes);
 
             // returns number of keystrokes per second
-            result = counter / (diff_ms / 1000);
+            result = counter / diff_s;
             return result;
         }
 
-        // calculates the average down down time
-        public double CalculateAverageDownDownTime(List<Keystroke> keystrokes)
+        // calculates duration of task
+        public double CalculateTaskDuration(List<Keystroke> keystrokes)
         {
             double result = 0;
-            double sum_consecutive_diffs = 0;
+
+            // calculate differences between times in first and last key presses
+            DateTime init_time = keystrokes[0].Timestamp;
+            DateTime final_time = keystrokes[keystrokes.Count - 1].Timestamp;
+            TimeSpan span = final_time - init_time;
+            result = (int)span.TotalMilliseconds / 1000;
+
+            return result;
+        }
+
+        /* Pause-based Features */
+
+        // calculates the number of pauses (interval between keystrokes > 0.5s)
+        public double CalculateNumberOfPauses(List<Keystroke> keystrokes)
+        {
+            double result = 0;
+
+            for (int i = 0; i < keystrokes.Count - 1; i++)
+            {
+                DateTime timestamp_keystroke = keystrokes[i].Timestamp;
+                DateTime timestamp_next_keystrone = keystrokes[i + 1].Timestamp;
+                TimeSpan span = timestamp_next_keystrone - timestamp_keystroke;
+                if ((int)span.TotalMilliseconds > 500)
+                    result = result + 1;
+            }
+
+            return result;
+        }
+
+        // calculates pause length (interval between keystrokes > 0.5s)
+        public AverageStdDev CalculateAveragePauseLength(List<Keystroke> keystrokes)
+        {
+            double avg = 0;
+            double sd = 0;
+            double sum_sqrd_diffs = 0;
+
+            AverageStdDev result = null;
+            List<double> pausesMiliseconds = new List<double>();
+
+            for (int i = 0; i < keystrokes.Count - 1; i++)
+            {
+                DateTime timestamp_keystroke = keystrokes[i].Timestamp;
+                DateTime timestamp_next_keystrone = keystrokes[i + 1].Timestamp;
+                TimeSpan span = timestamp_next_keystrone - timestamp_keystroke;
+
+                if ((int)span.TotalMilliseconds > 500)
+                    pausesMiliseconds.Add((int)span.TotalMilliseconds);
+            }
+
+            avg = pausesMiliseconds.Average();
+            sum_sqrd_diffs = pausesMiliseconds.Select(val => (val - avg) * (val - avg)).Sum();
+            sd = Math.Sqrt(sum_sqrd_diffs / pausesMiliseconds.Count);
+
+            result = new AverageStdDev(avg, sd);
+
+            return result;
+        }
+
+        /* Frequency Features */
+
+        // counts number of error keys (delete or backspace) pressed 
+        public double CalculateNumberOfErrorKeysPressed(List<Keystroke> keystrokes)
+        {
+            string[] keys = new string[2];
+            keys[0] = "Back";
+            keys[1] = "Delete";
+
+            return CalculateFrequency(keystrokes, keys);
+        }
+
+        // counts number of error keys (delete or backspace) pressed 
+        public double CalculateNumberOfArrowKeysPressed(List<Keystroke> keystrokes)
+        {
+            string[] keys = new string[4];
+            keys[0] = "Right";
+            keys[1] = "Left";
+            keys[2] = "Up";
+            keys[3] = "Down";
+
+            return CalculateFrequency(keystrokes, keys);
+        }
+
+        // counts number of error keys (delete or backspace) pressed 
+        public double CalculateNumberOfShiftKeysPressed(List<Keystroke> keystrokes)
+        {
+            string[] keys = new string[2];
+            keys[0] = "Lshift";
+            keys[1] = "Rshift";
+
+            return CalculateFrequency(keystrokes, keys);
+        }
+
+        // counts number of error keys (delete or backspace) pressed 
+        public double CalculateNumberOfControlKeysPressed(List<Keystroke> keystrokes)
+        {
+            string[] keys = new string[2];
+            keys[0] = "Lcontrol";
+            keys[1] = "Rcontrol";
+
+            return CalculateFrequency(keystrokes, keys);
+        }
+
+        // Counts how many keys are found in the keystrokes list
+        public double CalculateFrequency(List<Keystroke> keystrokes, string[] key)
+        {
+            double result = 0;
+            bool contains;
+
+            List<Keystroke> keydowns = (List<Keystroke>)keystrokes.Where(x => !x.IsKeyUp).ToList();
+            for (int i = 0; i < keydowns.Count; i++)
+            {
+                contains = false;
+                for (int j = 0; j < key.Length; j++)
+                    contains |= keydowns[i].Character.Equals(key[j]);
+                if (contains)
+                    result += 1;
+            }
+
+            return result;
+        }
+
+        /* Latency features */
+
+        // calculates the average down down time
+        public AverageStdDev CalculateAverageDownDownTime(List<Keystroke> keystrokes)
+        {
+            AverageStdDev result = null;
+            double avg = 0;
+            double sd = 0;
+            double sum_sqrd_diffs = 0;
 
             // selecting keydowns (i.e., key presses)
-            List<Keystroke> keydowns = (List<Keystroke>) keystrokes.Where(x => !x.IsKeyUp).ToList();
-            
+            List<Keystroke> keydowns = (List<Keystroke>)keystrokes.Where(x => !x.IsKeyUp).ToList();
+            double[] diffsArray = new double[keydowns.Count - 1];
+
             for (int i = 0; i < keydowns.Count - 1; i++)
             {
                 DateTime timestamp_keystroke = keydowns[i].Timestamp;
                 DateTime timestamp_next_keystrone = keydowns[i + 1].Timestamp;
                 TimeSpan span = timestamp_next_keystrone - timestamp_keystroke;
-                int diff_ms = (int)span.TotalMilliseconds;
-                sum_consecutive_diffs += diff_ms;
+                diffsArray[i] = (int)span.TotalMilliseconds;
             }
 
-            result = sum_consecutive_diffs / keydowns.Count;
+            avg = diffsArray.Average();
+            sum_sqrd_diffs = diffsArray.Select(val => (val - avg) * (val - avg)).Sum();
+            sd = Math.Sqrt(sum_sqrd_diffs / diffsArray.Length);
+
+            result = new AverageStdDev(avg, sd);
+
             return result;
         }
 
         // calculates the average down up time
-        public double CalculateAverageDownUpTime(List<Keystroke> keystrokes)
+        public AverageStdDev CalculateAverageDownUpTime(List<Keystroke> keystrokes)
         {
-            double result = 0;
-            double sum_consecutive_diffs = 0;
+            double avg = 0;
+            double sd = 0;
+            double sum_sqrd_diffs = 0;
+
+            List<double> diffsArray = new List<double>() ;
+            AverageStdDev result = null;
 
             Queue<Keystroke> queue = new Queue<Keystroke>();
 
@@ -72,112 +212,29 @@ namespace DataAnalyzer.Parser.KeystrokeFeatures
                     DateTime timestamp_current_keystroke = current.Timestamp;
                     DateTime timestamp_old_keystrone = popped_keystroke.Timestamp;
                     TimeSpan span = timestamp_current_keystroke - timestamp_old_keystrone;
-                    sum_consecutive_diffs += (int)span.TotalMilliseconds;
+                    diffsArray.Add((int)span.TotalMilliseconds);
                 }
                 i += 1;
             }
             
-            result = sum_consecutive_diffs / keystrokes.Count;
-            return result;
-        }
+            avg = diffsArray.Average();
+            sum_sqrd_diffs = diffsArray.Select(val => (val - avg) * (val - avg)).Sum();
+            sd = Math.Sqrt(sum_sqrd_diffs / diffsArray.Count);
 
-        // counts number of error keys (delete or backspace) pressed 
-        public double CalculateNumberOfErrorKeysPressed(List<Keystroke> keystrokes)
-        {
-            double result = 0;
-
-            List<Keystroke> keydowns = (List<Keystroke>)keystrokes.Where(x => !x.IsKeyUp).ToList();
-            for (int i = 0; i < keydowns.Count; i++)
-                if (keydowns[i].Character.Equals("Back") || keydowns[i].Character.Equals("Delete"))
-                    result += 1;
-
-            return result;
-        }
-
-        // calculates duration of task
-        public double CalculateTaskDuration(List<Keystroke> keystrokes)
-        {
-            double result = 0;
+            result = new AverageStdDev(avg, sd);
             
-            // calculate differences between times in first and last key presses
-            DateTime init_time = keystrokes[0].Timestamp;
-            DateTime final_time = keystrokes[keystrokes.Count - 1].Timestamp;
-            TimeSpan span = final_time - init_time;
-            result = (int)span.TotalMilliseconds;
-
             return result;
         }
-
-        // duration between 1st and 2nd down keys of the digraphs
-        public double CalculateDownDownDigraphTime(List<Keystroke> keystrokes)
-        {
-            List<Keystroke> keydowns = (List<Keystroke>)keystrokes.Where(x => !x.IsKeyUp).ToList();
-            double result = 0;
-            double sum = 0;
-            int counter = 0;
-
-            for (int i = 0; i < keydowns.Count - 1; i++)
-            {
-                Keystroke keystroke1 = keydowns[i];
-                Keystroke keystroke2 = keydowns[i+1];
-
-                if (GraphsRepository.IsDigraph(keystroke1, keystroke2))
-                {
-                    DateTime init_time = keystroke1.Timestamp;
-                    DateTime final_time = keystroke2.Timestamp;
-                    TimeSpan span = final_time - init_time;
-                    sum += (int)span.TotalMilliseconds;
-                    counter += 1;
-                }
-            }
-
-            result = (counter != 0) ? (sum / counter) : 0;
-            return result;
-        }
-
-        // average duration of the 1st key of the digraphs
-        public double CalculateDownUpTimeFirstDigraphKey(List<Keystroke> keystrokes)
-        {
-            double result = 0;
-            double sum = 0;
-            int counter = 0;
-
-            List<Keystroke> keydowns = (List<Keystroke>)keystrokes.Where(x => !x.IsKeyUp).ToList();
-            for (int i = 0; i < keydowns.Count - 1; i++)
-            {
-                Keystroke keystroke1 = keydowns[i];
-                Keystroke keystroke2 = keydowns[i + 1];
-
-                if (GraphsRepository.IsDigraph(keystroke1, keystroke2))
-                {
-                    for (int j = keystroke1.Id; j < keystrokes.Count; j++)
-                    {
-                        if (keystrokes[j].IsKeyUp)
-                        {
-                            if (keystrokes[j].Character == keystroke1.Character)
-                            {
-                                DateTime init_time = keystroke1.Timestamp;
-                                DateTime final_time = keystrokes[j].Timestamp;
-                                TimeSpan span = final_time - init_time;
-                                sum += (int)span.TotalMilliseconds;
-                                counter += 1;
-                                break;
-                            }
-                        }
-                    }
-                }
-            }
-
-            result = (counter != 0) ? (sum / counter) : 0;
-            return result;
-        }
-        
+                
         // Calculate the average duration between 1st key up and next key down of the digraphs
-        public double CalculateFirstUpNextDownDigraphTime(List<Keystroke> keystrokes)
+        public AverageStdDev CalculateFirstUpNextDownDigraphTime(List<Keystroke> keystrokes)
         {
-            double result = 0;
-            double sum = 0;
-            int counter = 0;
+            double sum_sqrd_diffs = 0;
+            double sd = 0;
+            double avg = 0;
+
+            AverageStdDev result = null;
+            List<double> diffsArray = new List<double>();
 
             List<Keystroke> keydowns = (List<Keystroke>)keystrokes.Where(x => !x.IsKeyUp).ToList();
             for (int i = 0; i < keydowns.Count - 1; i++)
@@ -185,73 +242,39 @@ namespace DataAnalyzer.Parser.KeystrokeFeatures
                 Keystroke keystroke1 = keydowns[i];
                 Keystroke keystroke2 = keydowns[i + 1];
 
-                if (GraphsRepository.IsDigraph(keystroke1, keystroke2))
+                for (int j = keystroke1.Id; j < keystrokes.Count; j++)
                 {
-                    for (int j = keystroke1.Id; j < keystrokes.Count; j++)
+                    if (keystrokes[j].IsKeyUp)
                     {
-                        if (keystrokes[j].IsKeyUp)
+                        if (keystrokes[j].Character == keystroke1.Character)
                         {
-                            if (keystrokes[j].Character == keystroke1.Character)
-                            {
-                                DateTime init_time = keystrokes[j].Timestamp;
-                                DateTime final_time = keystroke2.Timestamp;
-                                TimeSpan span = final_time - init_time;
-                                sum += (int)span.TotalMilliseconds;
-                                counter += 1;
-                                break;
-                            }
+                            DateTime init_time = keystrokes[j].Timestamp;
+                            DateTime final_time = keystroke2.Timestamp;
+                            TimeSpan span = final_time - init_time;
+                            diffsArray.Add((int)span.TotalMilliseconds);
+                            break;
                         }
                     }
-                }
+                }   
             }
 
-            result = (counter != 0) ? (sum / counter) : 0;
-            return result;
-        }
+            avg = diffsArray.Average();
+            sum_sqrd_diffs = diffsArray.Select(val => (val - avg) * (val - avg)).Sum();
+            sd = Math.Sqrt(sum_sqrd_diffs / diffsArray.Count);
 
-        // average duration of the 2nd key of the digraphs
-        public double CalculateDownUpTimeSecondDigraphKey(List<Keystroke> keystrokes)
-        {
-            double result = 0;
-            double sum = 0;
-            int counter = 0;
-
-            List<Keystroke> keydowns = (List<Keystroke>)keystrokes.Where(x => !x.IsKeyUp).ToList();
-            for (int i = 0; i < keydowns.Count - 1; i++)
-            {
-                Keystroke keystroke1 = keydowns[i];
-                Keystroke keystroke2 = keydowns[i + 1];
-
-                if (GraphsRepository.IsDigraph(keystroke1, keystroke2))
-                {
-                    for (int j = keystroke2.Id; j < keystrokes.Count; j++)
-                    {
-                        if (keystrokes[j].IsKeyUp)
-                        {
-                            if (keystrokes[j].Character == keystroke2.Character)
-                            {
-                                DateTime init_time = keystroke2.Timestamp;
-                                DateTime final_time = keystrokes[j].Timestamp;
-                                TimeSpan span = final_time - init_time;
-                                sum += (int)span.TotalMilliseconds;
-                                counter += 1;
-                                break;
-                            }
-                        }
-                    }
-                }
-            }
-
-            result = (counter != 0) ? (sum / counter) : 0;
+            result = new AverageStdDev(avg, sd);
             return result;
         }
 
         // average duration of the digraphs (1st key down, 2nd key up)
-        public double CalculateDigraphDuration(List<Keystroke> keystrokes)
+        public AverageStdDev CalculateDigraphDuration(List<Keystroke> keystrokes)
         {
-            double result = 0;
-            double sum = 0;
-            int counter = 0;
+            double sd = 0;
+            double avg = 0;
+            double sum_sqrd_diffs = 0;
+
+            AverageStdDev result = null;
+            List<double> diffsArray = new List<double>();
 
             List<Keystroke> keydowns = (List<Keystroke>)keystrokes.Where(x => !x.IsKeyUp).ToList();
             for (int i = 0; i < keydowns.Count - 1; i++)
@@ -259,27 +282,28 @@ namespace DataAnalyzer.Parser.KeystrokeFeatures
                 Keystroke keystroke1 = keydowns[i];
                 Keystroke keystroke2 = keydowns[i + 1];
 
-                if (GraphsRepository.IsDigraph(keystroke1, keystroke2))
+                for (int j = keystroke2.Id; j < keystrokes.Count; j++)
                 {
-                    for (int j = keystroke2.Id; j < keystrokes.Count; j++)
+                    if (keystrokes[j].IsKeyUp)
                     {
-                        if (keystrokes[j].IsKeyUp)
+                        if (keystrokes[j].Character == keystroke2.Character)
                         {
-                            if (keystrokes[j].Character == keystroke2.Character)
-                            {
-                                DateTime init_time = keystroke1.Timestamp;
-                                DateTime final_time = keystrokes[j].Timestamp;
-                                TimeSpan span = final_time - init_time;
-                                sum += (int)span.TotalMilliseconds;
-                                counter += 1;
-                                break;
-                            }
+                            DateTime init_time = keystroke1.Timestamp;
+                            DateTime final_time = keystrokes[j].Timestamp;
+                            TimeSpan span = final_time - init_time;
+                            diffsArray.Add((int)span.TotalMilliseconds);
+                            break;
                         }
                     }
                 }
             }
 
-            result = (counter != 0) ? (sum / counter) : 0;
+            // Calculating average and standard deviation
+            avg = diffsArray.Average();
+            sum_sqrd_diffs = diffsArray.Select(val => (val - avg) * (val - avg)).Sum();
+            sd = Math.Sqrt(sum_sqrd_diffs / diffsArray.Count);
+
+            result = new AverageStdDev(avg, sd);
             return result;
         }
 
@@ -297,14 +321,11 @@ namespace DataAnalyzer.Parser.KeystrokeFeatures
                 Keystroke keystroke2 = keydowns[i + 1];
                 Keystroke keystroke3 = keydowns[i + 2];
 
-                if (GraphsRepository.IsTrigraph(keystroke1, keystroke2, keystroke3))
-                {
-                    DateTime init_time = keystroke1.Timestamp;
-                    DateTime final_time = keystroke2.Timestamp;
-                    TimeSpan span = final_time - init_time;
-                    sum += (int)span.TotalMilliseconds;
-                    counter += 1;
-                }
+                DateTime init_time = keystroke1.Timestamp;
+                DateTime final_time = keystroke2.Timestamp;
+                TimeSpan span = final_time - init_time;
+                sum += (int)span.TotalMilliseconds;
+                counter += 1;
             }
 
             result = (counter != 0) ? (sum / counter) : 0;
@@ -325,21 +346,18 @@ namespace DataAnalyzer.Parser.KeystrokeFeatures
                 Keystroke keystroke2 = keydowns[i + 1];
                 Keystroke keystroke3 = keydowns[i + 2];
 
-                if (GraphsRepository.IsTrigraph(keystroke1, keystroke2, keystroke3))
+                for (int j = keystroke1.Id; j < keystrokes.Count; j++)
                 {
-                    for (int j = keystroke1.Id; j < keystrokes.Count; j++)
+                    if (keystrokes[j].IsKeyUp)
                     {
-                        if (keystrokes[j].IsKeyUp)
+                        if (keystrokes[j].Character == keystroke1.Character)
                         {
-                            if (keystrokes[j].Character == keystroke1.Character)
-                            {
-                                DateTime init_time = keystroke1.Timestamp;
-                                DateTime final_time = keystrokes[j].Timestamp;
-                                TimeSpan span = final_time - init_time;
-                                sum += (int)span.TotalMilliseconds;
-                                counter += 1;
-                                break;
-                            }
+                            DateTime init_time = keystroke1.Timestamp;
+                            DateTime final_time = keystrokes[j].Timestamp;
+                            TimeSpan span = final_time - init_time;
+                            sum += (int)span.TotalMilliseconds;
+                            counter += 1;
+                            break;
                         }
                     }
                 }
@@ -363,21 +381,18 @@ namespace DataAnalyzer.Parser.KeystrokeFeatures
                 Keystroke keystroke2 = keydowns[i + 1];
                 Keystroke keystroke3 = keydowns[i + 2];
 
-                if (GraphsRepository.IsTrigraph(keystroke1, keystroke2, keystroke3))
+                for (int j = keystroke1.Id; j < keystrokes.Count; j++)
                 {
-                    for (int j = keystroke1.Id; j < keystrokes.Count; j++)
+                    if (keystrokes[j].IsKeyUp)
                     {
-                        if (keystrokes[j].IsKeyUp)
+                        if (keystrokes[j].Character == keystroke1.Character)
                         {
-                            if (keystrokes[j].Character == keystroke1.Character)
-                            {
-                                DateTime init_time = keystrokes[j].Timestamp;
-                                DateTime final_time = keystroke2.Timestamp;
-                                TimeSpan span = final_time - init_time;
-                                sum += (int)span.TotalMilliseconds;
-                                counter += 1;
-                                break;
-                            }
+                            DateTime init_time = keystrokes[j].Timestamp;
+                            DateTime final_time = keystroke2.Timestamp;
+                            TimeSpan span = final_time - init_time;
+                            sum += (int)span.TotalMilliseconds;
+                            counter += 1;
+                            break;
                         }
                     }
                 }
@@ -401,14 +416,11 @@ namespace DataAnalyzer.Parser.KeystrokeFeatures
                 Keystroke keystroke2 = keydowns[i + 1];
                 Keystroke keystroke3 = keydowns[i + 2];
 
-                if (GraphsRepository.IsTrigraph(keystroke1, keystroke2, keystroke3))
-                {
-                    DateTime init_time = keystroke2.Timestamp;
-                    DateTime final_time = keystroke3.Timestamp;
-                    TimeSpan span = final_time - init_time;
-                    sum += (int)span.TotalMilliseconds;
-                    counter += 1;
-                }
+                DateTime init_time = keystroke2.Timestamp;
+                DateTime final_time = keystroke3.Timestamp;
+                TimeSpan span = final_time - init_time;
+                sum += (int)span.TotalMilliseconds;
+                counter += 1;
             }
 
             result = (counter != 0) ? (sum / counter) : 0;
@@ -429,21 +441,18 @@ namespace DataAnalyzer.Parser.KeystrokeFeatures
                 Keystroke keystroke2 = keydowns[i + 1];
                 Keystroke keystroke3 = keydowns[i + 2];
 
-                if (GraphsRepository.IsTrigraph(keystroke1, keystroke2, keystroke3))
+                for (int j = keystroke2.Id; j < keystrokes.Count; j++)
                 {
-                    for (int j = keystroke2.Id; j < keystrokes.Count; j++)
+                    if (keystrokes[j].IsKeyUp)
                     {
-                        if (keystrokes[j].IsKeyUp)
+                        if (keystrokes[j].Character == keystroke2.Character)
                         {
-                            if (keystrokes[j].Character == keystroke2.Character)
-                            {
-                                DateTime init_time = keystroke2.Timestamp;
-                                DateTime final_time = keystrokes[j].Timestamp;
-                                TimeSpan span = final_time - init_time;
-                                sum += (int)span.TotalMilliseconds;
-                                counter += 1;
-                                break;
-                            }
+                            DateTime init_time = keystroke2.Timestamp;
+                            DateTime final_time = keystrokes[j].Timestamp;
+                            TimeSpan span = final_time - init_time;
+                            sum += (int)span.TotalMilliseconds;
+                            counter += 1;
+                            break;
                         }
                     }
                 }
@@ -467,21 +476,18 @@ namespace DataAnalyzer.Parser.KeystrokeFeatures
                 Keystroke keystroke2 = keydowns[i + 1];
                 Keystroke keystroke3 = keydowns[i + 2];
 
-                if (GraphsRepository.IsTrigraph(keystroke1, keystroke2, keystroke3))
+                for (int j = keystroke2.Id; j < keystrokes.Count; j++)
                 {
-                    for (int j = keystroke2.Id; j < keystrokes.Count; j++)
+                    if (keystrokes[j].IsKeyUp)
                     {
-                        if (keystrokes[j].IsKeyUp)
+                        if (keystrokes[j].Character == keystroke2.Character)
                         {
-                            if (keystrokes[j].Character == keystroke2.Character)
-                            {
-                                DateTime init_time = keystrokes[j].Timestamp;
-                                DateTime final_time = keystroke3.Timestamp;
-                                TimeSpan span = final_time - init_time;
-                                sum += (int)span.TotalMilliseconds;
-                                counter += 1;
-                                break;
-                            }
+                            DateTime init_time = keystrokes[j].Timestamp;
+                            DateTime final_time = keystroke3.Timestamp;
+                            TimeSpan span = final_time - init_time;
+                            sum += (int)span.TotalMilliseconds;
+                            counter += 1;
+                            break;
                         }
                     }
                 }
@@ -505,21 +511,18 @@ namespace DataAnalyzer.Parser.KeystrokeFeatures
                 Keystroke keystroke2 = keydowns[i + 1];
                 Keystroke keystroke3 = keydowns[i + 2];
 
-                if (GraphsRepository.IsTrigraph(keystroke1, keystroke2, keystroke3))
+                for (int j = keystroke3.Id; j < keystrokes.Count; j++)
                 {
-                    for (int j = keystroke3.Id; j < keystrokes.Count; j++)
+                    if (keystrokes[j].IsKeyUp)
                     {
-                        if (keystrokes[j].IsKeyUp)
+                        if (keystrokes[j].Character == keystroke3.Character)
                         {
-                            if (keystrokes[j].Character == keystroke3.Character)
-                            {
-                                DateTime init_time = keystroke3.Timestamp;
-                                DateTime final_time = keystrokes[j].Timestamp;
-                                TimeSpan span = final_time - init_time;
-                                sum += (int)span.TotalMilliseconds;
-                                counter += 1;
-                                break;
-                            }
+                            DateTime init_time = keystroke3.Timestamp;
+                            DateTime final_time = keystrokes[j].Timestamp;
+                            TimeSpan span = final_time - init_time;
+                            sum += (int)span.TotalMilliseconds;
+                            counter += 1;
+                            break;
                         }
                     }
                 }
@@ -543,21 +546,18 @@ namespace DataAnalyzer.Parser.KeystrokeFeatures
                 Keystroke keystroke2 = keydowns[i + 1];
                 Keystroke keystroke3 = keydowns[i + 2];
 
-                if (GraphsRepository.IsTrigraph(keystroke1, keystroke2, keystroke3))
+                for (int j = keystroke3.Id; j < keystrokes.Count; j++)
                 {
-                    for (int j = keystroke3.Id; j < keystrokes.Count; j++)
+                    if (keystrokes[j].IsKeyUp)
                     {
-                        if (keystrokes[j].IsKeyUp)
+                        if (keystrokes[j].Character == keystroke3.Character)
                         {
-                            if (keystrokes[j].Character == keystroke3.Character)
-                            {
-                                DateTime init_time = keystroke1.Timestamp;
-                                DateTime final_time = keystrokes[j].Timestamp;
-                                TimeSpan span = final_time - init_time;
-                                sum += (int)span.TotalMilliseconds;
-                                counter += 1;
-                                break;
-                            }
+                            DateTime init_time = keystroke1.Timestamp;
+                            DateTime final_time = keystrokes[j].Timestamp;
+                            TimeSpan span = final_time - init_time;
+                            sum += (int)span.TotalMilliseconds;
+                            counter += 1;
+                            break;
                         }
                     }
                 }
@@ -565,6 +565,11 @@ namespace DataAnalyzer.Parser.KeystrokeFeatures
 
             result = (counter != 0) ? (sum/counter) : 0;
             return result;
+        }
+
+        public double CalculateDownUpTimeSecondDigraphKey(List<Keystroke> keystrokes)
+        {
+            throw new NotImplementedException();
         }
     }
 }

@@ -47,6 +47,7 @@
     <Compile Include="DataSynchronizer.cs" />
     <Compile Include="IDataSplitter.cs" />
     <Compile Include="KeystrokesDataSplitter.cs" />
+    <Compile Include="NearestSensorRepo.cs" />
     <Compile Include="Preprocessor.cs" />
     <Compile Include="PressureDataSplitter.cs" />
     <Compile Include="PressureIndex.cs" />

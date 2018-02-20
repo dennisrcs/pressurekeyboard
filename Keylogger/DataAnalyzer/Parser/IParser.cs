@@ -10,6 +10,6 @@ namespace DataAnalyzer.Parser
     public interface IParser
     {
         // for a given input filepath parsers its data
-        void Parse(string filepath);
+        void Parse(string filepath, bool normed);
     }
 }

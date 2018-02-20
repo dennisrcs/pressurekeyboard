@@ -9,6 +9,6 @@ namespace DataSplitter
     // IDataSplitter interface
     public interface IDataSplitter
     {
-        void Split(TaskInfo taskInfo, string[] keystrokes_content);
+        void Split(TaskInfo taskInfo, string[] keystrokes_content, DateTime keystrokeDate);
     }
 }

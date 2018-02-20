@@ -17,7 +17,7 @@ namespace DataAnalyzer.KeystrokeFeatures
             get { return _keystrokes; }
         }
 
-        public void Parse(string filepath)
+        public void Parse(string filepath, bool normed)
         {
             string[] inputdata = DataReader.ReadText(filepath);
 
@@ -32,6 +32,30 @@ namespace DataAnalyzer.KeystrokeFeatures
                 Keystroke key = new Keystroke(line,i);
                 _keystrokes.Add(key);
             }
+        }
+
+        // Finds first minute cutoff index
+        internal static int FindFirstMinuteCutoffIndex(List<Keystroke> keystrokes)
+        {
+            int result = -1;
+
+            List<Keystroke> keydowns = (List<Keystroke>)keystrokes.Where(x => !x.IsKeyUp).ToList();
+            DateTime firstTimestamp = keydowns[0].Timestamp;
+
+            for (int i = 0; i < keydowns.Count; i++)
+            {
+                DateTime currentTimestamp = keydowns[i].Timestamp;
+                TimeSpan span = currentTimestamp - firstTimestamp;
+                if ((int)span.TotalSeconds < 120)
+                    continue;
+                else
+                {
+                    result = i;
+                    break;
+                }
+            }
+
+            return result;
         }
     }
 }

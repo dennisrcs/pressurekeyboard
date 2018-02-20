@@ -1,0 +1,24 @@
+SeqNo, Year, Month, Day, ms, EventCode, Type, Source, EventID, EventSpecificData
+0,2017,08,08,46559417,192,System,Unknown,0,Unsupported additional data : 00:00:01:01:00:00:00:00:00:00
+0,2017,08,08,46560038,4160,Physiological,WornDetection,0,Worn status changed from 100% to   0%
+0,2017,08,08,46560621,4160,Physiological,WornDetection,0,Worn status changed from   0% to 100%
+0,2017,08,08,46561220,4160,Physiological,WornDetection,0,Worn status changed from 100% to   0%
+0,2017,08,08,46562041,4096,Physiological,RogAlgorithm,0,ROG status change from Green to Invalid.
+0,2017,08,08,46576192,4160,Physiological,WornDetection,0,Worn status changed from   0% to 100%
+0,2017,08,08,46577969,4160,Physiological,WornDetection,0,Worn status changed from 100% to   0%
+0,2017,08,08,46588832,4160,Physiological,WornDetection,0,Worn status changed from   0% to 100%
+0,2017,08,08,46589022,4160,Physiological,WornDetection,0,Worn status changed from 100% to   0%
+0,2017,08,08,46589398,4160,Physiological,WornDetection,0,Worn status changed from   0% to 100%
+0,2017,08,08,46589579,4160,Physiological,WornDetection,0,Worn status changed from 100% to   0%
+0,2017,08,08,46595688,4160,Physiological,WornDetection,0,Worn status changed from   0% to 100%
+0,2017,08,08,46596041,4096,Physiological,RogAlgorithm,0,ROG status change from Invalid to Green.
+0,2017,08,08,46600044,4224,Physiological,HeartRateCalculation,0,Heart rate Reliable changed from False to True
+0,2017,08,08,46601043,4096,Physiological,RogAlgorithm,0,ROG status change from Green to Red.
+0,2017,08,08,46601044,4224,Physiological,HeartRateCalculation,0,Heart rate Reliable changed from True to False
+0,2017,08,08,46602043,4224,Physiological,HeartRateCalculation,0,Heart rate Reliable changed from False to True
+0,2017,08,08,46613047,4096,Physiological,RogAlgorithm,0,ROG status change from Red to Green.
+0,2017,08,08,48445415,4160,Physiological,WornDetection,0,Worn status changed from 100% to   0%
+0,2017,08,08,48445419,4096,Physiological,RogAlgorithm,0,ROG status change from Green to Invalid.
+0,2017,08,08,48445420,4224,Physiological,HeartRateCalculation,0,Heart rate Reliable changed from True to False
+0,2017,08,08,48446146,4160,Physiological,WornDetection,0,Worn status changed from   0% to 100%
+0,2017,08,08,48446199,4160,Physiological,WornDetection,0,Worn status changed from 100% to   0%

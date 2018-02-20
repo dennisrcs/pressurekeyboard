@@ -250,3 +250,10 @@ ModelManifest.xml
 /Keylogger/Data/output_keystrokepressure_max
 /Keylogger/Data/output_allfeatures
 /Keylogger/Data/output
+/Keylogger/Old Data/Data
+/Keylogger/Data/Raw_centered_1_to_9_max_movavg
+/Keylogger/Data/All_nearest_sensor
+/Keylogger/Data/All_max_movavg
+/Keylogger/Data/All_findpeaks
+/Keylogger/Data/All_diffmaxmin_movavg
+/Keylogger/Data/Participants_1_9_sensor2_average.zip
